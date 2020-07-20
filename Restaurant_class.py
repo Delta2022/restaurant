@@ -3,6 +3,7 @@ import random
 import json
 import time
 
+# Copyright © 2020 Alvin Ran
 
 
 class Restaurant:
@@ -30,15 +31,17 @@ class Restaurant:
 			self.saved = 0
 
 	def describe_restaurant(self):
-		print(f'Your Restaurant {self.name}\'s infomation')
-		print(f'\nMoney                    =  ${"%.2f"%self.money}')
+		print(f'Your Restaurant {self.name}\'s infomation:\n')
+		
 		if self.age == 1:
-			print(f'\nAge                      =  {self.age} day')
+			print(f'Age                      =  {self.age} day')
 		else:
-			print(f'\nAge                      =  {self.age} days')
-		print(f'\nDaily Expences           =  ${"%.2f"%self.expences}')
-		print(f'\nMax people in restaurant =  {self.limit}')
-		print(f'\nTotal customers          =  {self.totalcustomers}\n')
+			print(f'Age                      =  {self.age} days')
+		print(f'Daily Expences           =  ${"%.2f"%self.expences}')
+		print(f'Max people in restaurant =  {self.limit}')
+		print(f'Total customers          =  {self.totalcustomers}')
+		print(f'Money                    =  ${"%.2f"%self.money}\n')
+
 	def open_restaurant(self):
 		print(f'\n{self.name} is open!')
 		print('(you can only open once per day)\n')
@@ -67,9 +70,11 @@ class Restaurant:
 		for i in range(self.add1):
 			self.add2 = float(random.randrange(1,2*self.water + 5))
 			self.add3 = float(self.add3)
+			self.gst = self.add2 * 0.05
+			self.add2 = round(1.05*self.add2 , 2)
 			self.add3 += self.add2
 			self.money += self.add2
-		print(f'\nYou earned ${"%.2f"%self.add3} for a total of ${"%.2f"%self.money}')
+		print(f'\nYou earned ${"%.2f"%self.add3} + GST for a total of ${"%.2f"%self.money}')
 		self.add3 = 0
 		print(f'\n{self.name} is closed\n')
 		print(f'\nYou need ${"%.2f"%self.expences} to pay for your expences\n')
@@ -109,6 +114,8 @@ class Restaurant:
 					self.quality += 2
 					self.expences = float(self.e_water + self.e_food)
 					print(f'\nSuccessful!\n{self.name} has {self.quality} quality now! Water now costs ${"%.2f"%self.e_water} per day.\n')
+			else:
+				print('\nCancelled\n')
 
 		elif item == 'food':
 			print('\nBetter food brings in more customers and has a higher chance of customers staying in the line')
@@ -128,6 +135,14 @@ class Restaurant:
 					self.quality += 2
 					self.expences = float(self.e_water + self.e_food)
 					print(f'\nSuccessful!\n{self.name} has {self.quality} quality now! Food now costs ${"%.2f"%self.e_food} per day\n')
+			else:
+				print('\nCancelled\n')
+		
+		elif item == 'prices':
+			print(f'\nWater costs ${"%.2f"%self.p_water}')
+			print(f'Food costs ${"%.2f"%self.p_food}')
+			print(f'More space costs ${"%.2f"%self.p_limit}\n')
+
 		elif item == 'limit':
 			print('\nMore space means more customers')
 			print(f'\nMore space costs ${"%.2f"%self.p_limit}')
@@ -145,6 +160,8 @@ class Restaurant:
 					print(f'\nSuccessful!\n{self.name} has {self.quality} quality now!\n')
 					if self.a_25_space == "False" and self.limit >= 25:
 						print('You have unlocked an achievement: \'Potential\' ( Be able to fit 25 people in your Restaurant )\n')
+			else:
+				print('\nCancelled\n')
 
 	def help(self):
 		print('\nWhat to type  |  What it means')
@@ -155,3 +172,5 @@ class Restaurant:
 		print('Save          -> Saves your progress')
 		print('Reset         -> Resets your progress')
 		print('Version       -> Tells what version the program is\n')
+		print('Help          -> Shows the lines of text above')
+		

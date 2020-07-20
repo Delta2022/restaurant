@@ -4,13 +4,14 @@
 # To run on Thonny, replace all tabs with 4 spaces
 # Using Python 3.8.4
 # Any problems can be emailed  to zi.azzr227@gmail.com
+# Copyright © 2020 Alvin Ran
 import random
 import time
 import json
 import os
 from Restaurant_class import Restaurant
 
-VERSION = 'Version 1.2.7'
+VERSION = 'Snapshot 1.2.8.2'
 
 absPath = os.path.abspath(__file__)
 currentPath = os.path.dirname(__file__)
@@ -31,7 +32,7 @@ if value['name'] == "":
 	print('Start buy typing \'open\' below, when you get $75 buy water (type \'buy\' then \'water\'). Type \'info\' to see how you are doing ( Do this after typing open for the first time ). Type \'exit\' to exit\n')
 
 else:
-	print(f"\nWelcome back to your restaurant: {value['name']}")
+	print(f"\nWelcome back to your restaurant: {value['name']}\n")
 	aiyo = Restaurant(value['name'],value)
 	aiyo.describe_restaurant()
 flag = True
@@ -62,6 +63,8 @@ while flag:
 				aiyo.buy('food')
 			elif next2 == ('space'):
 				aiyo.buy('limit')
+			elif next2 == 'prices':
+				aiyo.buy('prices')
 		
 
 			else:
@@ -74,6 +77,8 @@ while flag:
 					json.dump({"name": "", "quality": 1, "age": 0, "totalcustomers": 0, "money": 50, "food": 1, "water": 1, "p_food": 100, "p_water": 75, "e_water": 2, "e_food": 2, "a_100_totalcustomers": "False", "a_100_totalmoney": "False", "a_20_totalmoney": "False" , "limit":10 , "p_limit":75 , "a_25_space":"False"}, f2)
 					flag = False
 					flag1 = True
+				else:
+					print('\nReset Cancelled\n')
 		elif next1 == 'save':
 			a = aiyo.save()
 			with open(filename , 'w') as f11:
@@ -81,7 +86,7 @@ while flag:
 			('\nProgress saved\n')
 		elif next1 == 'version':
 			print(f'\nRestaurant is running on {VERSION}\n')
-		elif next1 == 'help':
+		elif next1 == 'help' or next1 == 'h':
 			aiyo.help()
 
 		else:
