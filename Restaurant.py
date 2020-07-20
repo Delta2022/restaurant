@@ -11,7 +11,7 @@ import json
 import os
 from Restaurant_class import Restaurant
 
-VERSION = 'Snapshot 1.2.8.2'
+VERSION = 'Snapshot 1.2.8.2 '
 
 absPath = os.path.abspath(__file__)
 currentPath = os.path.dirname(__file__)
