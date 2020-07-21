@@ -13,7 +13,7 @@ import json
 import os
 from Restaurant_class import Restaurant
 
-VERSION = 'Snapshot 1.2.8.3'
+VERSION = 'Version 1.2.8 pre-4'
 
 absPath = os.path.abspath(__file__)
 currentPath = os.path.dirname(__file__)
@@ -85,7 +85,7 @@ while flag:
 			a = aiyo.save()
 			with open(filename , 'w') as f11:
 				json.dump(a , f11)
-			('\nProgress saved\n')
+				print('\nProgress saved\n')
 		elif next1 == 'version':
 			print(f'\nRestaurant is running on {VERSION}\n')
 		elif next1 == 'help' or next1 == 'h':
