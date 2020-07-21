@@ -13,7 +13,7 @@ import json
 import os
 from Restaurant_class import Restaurant
 
-VERSION = 'Version 1.2.8 pre-4'
+VERSION = 'Version 1.2.8'
 
 absPath = os.path.abspath(__file__)
 currentPath = os.path.dirname(__file__)
