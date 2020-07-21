@@ -13,7 +13,7 @@ import json
 import os
 from Restaurant_class import Restaurant
 
-VERSION = 'Snapshot 1.2.8.2 '
+VERSION = 'Snapshot 1.2.8.3'
 
 absPath = os.path.abspath(__file__)
 currentPath = os.path.dirname(__file__)
@@ -31,7 +31,7 @@ if value['name'] == "":
 
 	aiyo = Restaurant(str(a227),value)
 	aiyo.describe_restaurant()
-	print('Start buy typing \'open\' below, when you get $75 buy water (type \'buy\' then \'water\'). Type \'info\' to see how you are doing ( Do this after typing open for the first time ). Type \'exit\' to exit\n')
+	print('Start buy typing \'open\' below, when you get $75 buy water (type \'buy\' then \'water\'). Type \'info\' to see how you are doing. Also type \'help\' or \'h\' to show all commands Type \'exit\' to exit\n')
 
 else:
 	print(f"\nWelcome back to your restaurant: {value['name']}\n")
@@ -65,7 +65,7 @@ while flag:
 				aiyo.buy('food')
 			elif next2 == ('space'):
 				aiyo.buy('limit')
-			elif next2 == 'prices':
+			elif next2 == 'prices' or next2 == 'price':
 				aiyo.buy('prices')
 		
 

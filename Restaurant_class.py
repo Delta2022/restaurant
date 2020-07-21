@@ -171,6 +171,7 @@ class Restaurant:
 		print('Info          -> Gives infomation about your Restaurant')
 		print('Save          -> Saves your progress')
 		print('Reset         -> Resets your progress')
-		print('Version       -> Tells what version the program is\n')
-		print('Help          -> Shows the lines of text above')
+		print('Version       -> Tells what version the program is')
+		print('Help          -> Shows the lines of text above\n')
+		print('Prices        -> First type \'buy\'. shows prices for water, food and space')
 		
