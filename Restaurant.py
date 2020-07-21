@@ -90,7 +90,12 @@ while flag:
 			print(f'\nRestaurant is running on {VERSION}\n')
 		elif next1 == 'help' or next1 == 'h':
 			aiyo.help()
-
+		elif next1 == 'rename':
+			next2 = input('Enter the new name:  ')
+			aiyo.rename(next2)
+			a = aiyo.save()
+			with open(filename , 'w') as f11:
+				json.dump(a , f11)
 		else:
 				print('what?')
 if flag1 == False:

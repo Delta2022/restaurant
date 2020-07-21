@@ -176,4 +176,12 @@ class Restaurant:
 		print('Version       -> Tells what version the program is')
 		print('Help          -> Shows the lines of text above')
 		print('Prices        -> Only available through the Buy menu. shows prices for water, food and space\n')
+		print('Rename        -> Renames your restaurant to a new name')
 		
+	def rename(self,name1):
+		if name1 == self.name:
+			print('\nName not changed')
+		else:
+			print('\nName change successful!')
+			print(f'Your restaurant\'s name is now {name1}\n')
+			self.name = name1
