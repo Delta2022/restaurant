@@ -4,7 +4,9 @@
 # To run on Thonny, replace all tabs with 4 spaces
 # Using Python 3.8.4
 # Any problems can be emailed  to zi.azzr227@gmail.com
-# Copyright © 2020 Alvin Ran
+# Copyright © 2020 Alvin Ran 
+# July 20, 2020
+
 import random
 import time
 import json
