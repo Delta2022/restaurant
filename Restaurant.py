@@ -3,7 +3,7 @@
 # Runnable on IDLE, Thonny and VS code
 # To run on Thonny, replace all tabs with 4 spaces
 # Using Python 3.8.4
-# Any problems can be emailed  to zi.azzr227@gmail.com
+# Any problems can be emailed to incoming+delta2020-restaurant-20064588-6s55kcyooo8bd2zrcqfx5yvfp-issue@incoming.gitlab.com
 # Copyright © 2020 Alvin Ran 
 # July 20, 2020
 
@@ -13,7 +13,7 @@ import json
 import os
 from Restaurant_class import Restaurant
 
-VERSION = 'Version 1.2.9 pre-1'
+VERSION = 'Version 1.2.9 pre-2'
 DATE = 'July 22 2020'
 
 absPath = os.path.abspath(__file__)
@@ -32,7 +32,7 @@ if value['name'] == "":
 
 	aiyo = Restaurant(str(a227),value)
 	aiyo.describe_restaurant()
-	print('Start buy typing \'open\' below, when you get $75 buy water (type \'buy\' then \'water\'). Type \'info\' to see how you are doing. Also type \'help\' or \'h\' to show all commands Type \'exit\' to exit\n')
+	print('Start buy typing \'open\' below, when you get $75 buy water (type \'buy\' then \'water\'). Type \'info\' to see how you are doing. Also type \'help\' or \'h\' to show all commands. Type \'exit\' to exit\n')
 
 else:
 	print(f"\nWelcome back to your restaurant: {value['name']}\n")
@@ -41,9 +41,9 @@ else:
 flag = True
 
 flag1 = False
-next3 = True
+next4 = True
 while flag:
-		if next3 == True:
+		if next4 == True:
 			next1 = input('What do you want to do?  ')
 			next1 = str.lower(next1)
 		else:
@@ -62,7 +62,7 @@ while flag:
 		elif next1 == 'info':
 			aiyo.describe_restaurant()
 		elif next1 == 'buy':
-			next3 = True
+			next4 = True
 			next2 = input('What do you want to buy?  ')
 			next2 = str.lower(next2)
 			if next2 == 'water':
@@ -73,12 +73,12 @@ while flag:
 				aiyo.buy('limit')
 			elif next2 == 'prices' or next2 == 'price':
 				aiyo.buy('prices')
-				next3 = False
+				next4 = False
 			elif next2 == 'exit':
-				next3 = True
+				next4 = True
 			else:
 				print('what?')
-				next3 = False
+				next4 = False
 
 		elif next1 == 'reset':
 			with open(filename, 'w') as f2:
@@ -98,7 +98,7 @@ while flag:
 		elif next1 == 'about':
 			print(f'\n{VERSION}')
 			print(f'Released on {DATE}')
-			print('Copyright © Alvin Ran. All rights reserved')
+			print('Copyright © Alvin Ran. All rights reserved\n')
 			print('Made by Alvin Ran')
 			print('Contributors:')
 			print('Jun Ran\nZhiping Lou\n')
@@ -116,4 +116,4 @@ if flag1 == False:
 	a = aiyo.save()
 	with open(filename , 'w') as f11:
 		json.dump(a , f11)
-print('\nThe end')
+print('\nThe end\n')

@@ -51,15 +51,20 @@ class Restaurant:
 		if self.add1 > self.limit:
 			
 			if self.add1 - self.limit == 1:
-				print('You have not enough space! 1 person is in queue\n')
+				print('You have not enough space! 1 person is in queue')
 			else:
-				print(f'You have not enough space! {self.add1 - self.limit} people are in queue\n')
-			self.saved = random.randrange(self.food - 1,self.add1 - self.limit , 1)
+				print(f'You have not enough space! {self.add1 - self.limit} people are in queue')
+			if self.food - 6 < self.add1 - self.limit:
+				self.saved = random.randrange(self.food - 1,self.add1 - self.limit-1 , 1)
+			else:
+				self.saved = random.randrange(self.add1 - self.limit - 5,self.add1 - self.limit-1 , 1)
 			if self.saved > 0:
 				if self.saved == 1:
 					print(f'1 person waited but {self.add1 - self.limit - self.saved} people left\n')
 				else:
 					print(f'{self.saved} people waited but {self.add1 - self.limit - self.saved} left\n')
+			else:
+				print('Everybody left\n')
 			self.add1 = self.limit + self.saved
 		self.totalcustomers += self.add1
 		self.age += 1
