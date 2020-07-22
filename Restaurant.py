@@ -13,7 +13,8 @@ import json
 import os
 from Restaurant_class import Restaurant
 
-VERSION = 'Version 1.2.8'
+VERSION = 'Version 1.2.9 pre-1'
+DATE = 'July 22 2020'
 
 absPath = os.path.abspath(__file__)
 currentPath = os.path.dirname(__file__)
@@ -40,9 +41,13 @@ else:
 flag = True
 
 flag1 = False
+next3 = True
 while flag:
-		next1 = input('What do you want to do?  ')
-		next1 = str.lower(next1)
+		if next3 == True:
+			next1 = input('What do you want to do?  ')
+			next1 = str.lower(next1)
+		else:
+			next1 = 'buy'
 		
 		if next1 == 'open':
 			hi = aiyo.open_restaurant()
@@ -57,6 +62,7 @@ while flag:
 		elif next1 == 'info':
 			aiyo.describe_restaurant()
 		elif next1 == 'buy':
+			next3 = True
 			next2 = input('What do you want to buy?  ')
 			next2 = str.lower(next2)
 			if next2 == 'water':
@@ -67,10 +73,13 @@ while flag:
 				aiyo.buy('limit')
 			elif next2 == 'prices' or next2 == 'price':
 				aiyo.buy('prices')
-		
-
+				next3 = False
+			elif next2 == 'exit':
+				next3 = True
 			else:
 				print('what?')
+				next3 = False
+
 		elif next1 == 'reset':
 			with open(filename, 'w') as f2:
 				next3 = input('Are you sure?  ')
@@ -86,8 +95,13 @@ while flag:
 			with open(filename , 'w') as f11:
 				json.dump(a , f11)
 				print('\nProgress saved\n')
-		elif next1 == 'version':
-			print(f'\nRestaurant is running on {VERSION}\n')
+		elif next1 == 'about':
+			print(f'\n{VERSION}')
+			print(f'Released on {DATE}')
+			print('Copyright © Alvin Ran. All rights reserved')
+			print('Made by Alvin Ran')
+			print('Contributors:')
+			print('Jun Ran\nZhiping Lou\n')
 		elif next1 == 'help' or next1 == 'h':
 			aiyo.help()
 		elif next1 == 'rename':
@@ -102,4 +116,4 @@ if flag1 == False:
 	a = aiyo.save()
 	with open(filename , 'w') as f11:
 		json.dump(a , f11)
-print('The end')
+print('\nThe end')
