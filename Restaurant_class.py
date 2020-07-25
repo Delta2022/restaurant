@@ -55,7 +55,10 @@ class Restaurant:
 			else:
 				print(f'You have not enough space! {self.add1 - self.limit} people are in queue')
 			if self.food - 6 < self.add1 - self.limit:
-				self.saved = random.randrange(self.food - 1,self.add1 - self.limit-1 , 1)
+				if self.food - 1 != self.add1 - self.limit - 1:
+					self.saved = random.randrange(self.food - 1,self.add1 - self.limit-1 , 1)
+				else:
+					print('Everybody left\n')
 			else:
 				self.saved = random.randrange(self.add1 - self.limit - 5,self.add1 - self.limit-1 , 1)
 			if self.saved > 0:
@@ -173,14 +176,14 @@ class Restaurant:
 	def help(self):
 		print('\nWhat to type  |  What it means')
 		print('Open          -> Opens your restaurant')
-		print('Buy           -> Opens the Buy Menu')
-		print('Exit          -> Exits and saves the program. If used in the Buy Menu, Exits the Buy Menu')
+		print('Shop           -> Opens the Shop Menu')
+		print('Exit          -> Exits and saves the program. If used in the Shop Menu, Exits the Shop Menu')
 		print('Info          -> Gives infomation about your Restaurant')
 		print('Save          -> Saves your progress')
 		print('Reset         -> Resets your progress')
 		print('About         -> Shows Version and other data about program')
 		print('Help          -> Shows the lines of text above')
-		print('Prices        -> Only available through the Buy menu. shows prices for water, food and space')
+		print('Prices        -> Only available through the Shop menu. shows prices for water, food and space')
 		print('Rename        -> Renames your restaurant to a new name\n')
 		
 	def rename(self,name1):

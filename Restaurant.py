@@ -3,9 +3,8 @@
 # Runnable on IDLE, Thonny and VS code
 # To run on Thonny, replace all tabs with 4 spaces
 # Using Python 3.8.4
-# Any problems can be emailed to incoming+delta2020-restaurant-20064588-6s55kcyooo8bd2zrcqfx5yvfp-issue@incoming.gitlab.com
+# Any problems can be emailed to zi.azzr227@gmail.com
 # Copyright © 2020 Alvin Ran 
-# July 20, 2020
 
 import random
 import time
@@ -14,7 +13,7 @@ import os
 from Restaurant_class import Restaurant
 
 VERSION = 'Version 1.2.9 pre-2'
-DATE = 'July 22 2020'
+DATE = 'July 25 2020'
 
 absPath = os.path.abspath(__file__)
 currentPath = os.path.dirname(__file__)
@@ -42,6 +41,7 @@ flag = True
 
 flag1 = False
 next4 = True
+save = 0
 while flag:
 		if next4 == True:
 			next1 = input('What do you want to do?  ')
@@ -57,11 +57,20 @@ while flag:
 					json.dump({"name": "", "quality": 1, "age": 0, "totalcustomers": 0, "money": 50, "food": 1, "water": 1, "p_food": 100, "p_water": 75, "e_water": 2, "e_food": 2, "a_100_totalcustomers": "False", "a_100_totalmoney": "False", "a_20_totalmoney": "False" , "limit":10 , "p_limit":75 , "a_25_space":"False"}, f5)
 					flag = False
 					flag1 = True
+			if save >= 4:
+				a = aiyo.save()
+				with open(filename, 'w') as f11:
+					json.dump(a , f11)
+				save = 0
+				print('Auto Saved\n')
+			else:
+				save += 1
+
 		elif next1 == 'exit':
 			flag = False
 		elif next1 == 'info':
 			aiyo.describe_restaurant()
-		elif next1 == 'buy':
+		elif next1 == 'shop':
 			next4 = True
 			next2 = input('What do you want to buy?  ')
 			next2 = str.lower(next2)
@@ -111,7 +120,9 @@ while flag:
 			with open(filename , 'w') as f11:
 				json.dump(a , f11)
 		else:
-				print('what?')
+			print('what?')
+
+
 if flag1 == False:
 	a = aiyo.save()
 	with open(filename , 'w') as f11:
