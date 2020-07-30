@@ -1,4 +1,4 @@
-import os
+
 import random
 import json
 import time
@@ -8,27 +8,27 @@ import time
 
 class Restaurant:
 	def __init__(self,name,dict1):
-			self.f = dict1
-			self.name = name
-			self.quality = self.f['quality']
-			self.age = self.f['age']
-			self.totalcustomers = self.f['totalcustomers']
-			self.money = float(self.f['money'])
-			self.add3 = 0
-			self.food = self.f['food']
-			self.water = self.f['water']
-			self.p_water = self.f['p_water']
-			self.p_food = self.f['p_food']
-			self.e_water = float(self.f['e_water'])
-			self.e_food = float(self.f['e_food'])
-			self.expences = float(self.e_water + self.e_food)
-			self.a_100_totalcustomers = self.f['a_100_totalcustomers']
-			self.a_100_totalmoney = self.f['a_100_totalmoney']
-			self.a_20_totalmoney = self.f['a_20_totalmoney']
-			self.a_25_space = self.f['a_25_space']
-			self.limit = self.f['limit']
-			self.p_limit = float(self.f['p_limit'])
-			self.saved = 0
+		self.f = dict1
+		self.name = name
+		self.quality = self.f['quality']
+		self.age = self.f['age']
+		self.totalcustomers = self.f['totalcustomers']
+		self.money = float(self.f['money'])
+		self.add3 = 0
+		self.food = self.f['food']
+		self.water = self.f['water']
+		self.p_water = self.f['p_water']
+		self.p_food = self.f['p_food']
+		self.e_water = float(self.f['e_water'])
+		self.e_food = float(self.f['e_food'])
+		self.expences = float(self.e_water + self.e_food)
+		self.a_100_totalcustomers = self.f['a_100_totalcustomers']
+		self.a_100_totalmoney = self.f['a_100_totalmoney']
+		self.a_20_totalmoney = self.f['a_20_totalmoney']
+		self.a_25_space = self.f['a_25_space']
+		self.limit = self.f['limit']
+		self.p_limit = float(self.f['p_limit'])
+		self.saved = 0
 
 	def describe_restaurant(self):
 		print(f'\nYour Restaurant {self.name}\'s infomation:\n')
