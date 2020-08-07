@@ -2,7 +2,8 @@
 import random
 import json
 
-
+VERSION = 'Version 1.2.9 pre-2'
+DATE = 'August 6 2020'
 class Model:
     """ The Model class of the Restaurant """
     def __init__(self, name=""):
@@ -11,7 +12,9 @@ class Model:
         try:
             with open(self.json_file) as temp_file:
                 self.file = json.load(temp_file)
+                self.save = True
         except FileNotFoundError:
+            self.save = False
             self.file = {
                 "name": "",
                 "quality": 1,
@@ -77,7 +80,7 @@ class Model:
                     self.saved = random.randrange(self.food - 1, self.add1 -
                                                   self.limit-1, 1)
                 else:
-                    ans += str('\nEverybody left\n')
+                    self.saved = 0
             else:
                 self.saved = random.randrange(self.add1 - self.limit - 5,
                                               self.add1 - self.limit-1, 1)
@@ -133,26 +136,30 @@ class Model:
 
     def r_save(self):
         """ Saves the info """
-        with open(self.json_file, 'w') as temp_file:
-            json.dump({
-                "name": self.name,
-                "quality": self.quality,
-                "age": self.age,
-                "totalcustomers": self.totalcustomers,
-                "money": round(self.money, 2),
-                "food": self.food,
-                "water": self.water,
-                "p_food": self.p_food,
-                "p_water": self.p_water,
-                "e_water": self.e_water,
-                "e_food": self.e_food,
-                "a_100_totalcustomers": str(self.a_100_totalcustomers),
-                "a_100_totalmoney": str(self.a_100_totalmoney),
-                "a_20_totalmoney": str(self.a_20_totalmoney),
-                "limit": self.limit,
-                "p_limit": self.p_limit,
-                "a_25_space": str(self.a_25_space)
-                }, temp_file)
+        if self.save:
+            with open(self.json_file, 'w') as temp_file:
+                json.dump({
+                    "name": self.name,
+                    "quality": self.quality,
+                    "age": self.age,
+                    "totalcustomers": self.totalcustomers,
+                    "money": round(self.money, 2),
+                    "food": self.food,
+                    "water": self.water,
+                    "p_food": self.p_food,
+                    "p_water": self.p_water,
+                    "e_water": self.e_water,
+                    "e_food": self.e_food,
+                    "a_100_totalcustomers": str(self.a_100_totalcustomers),
+                    "a_100_totalmoney": str(self.a_100_totalmoney),
+                    "a_20_totalmoney": str(self.a_20_totalmoney),
+                    "limit": self.limit,
+                    "p_limit": self.p_limit,
+                    "a_25_space": str(self.a_25_space)
+                    }, temp_file)
+            return '\nProgress Saved\n'
+        else:
+            return '\nSave Unsuccessful\n'
 
 
     def r_buy(self, item):
@@ -209,9 +216,9 @@ class Model:
 
         elif item == 'prices':
             ans += str(f'\nWater costs ${"%.2f"%self.p_water}')
-            ans += str(f'Food costs ${"%.2f"%self.p_food}')
-            ans += str(f'More space costs ${"%.2f"%self.p_limit}\n')
-            ans += str(f'You have ${"%.2f"%self.money}\n')
+            ans += str(f'\nFood costs ${"%.2f"%self.p_food}')
+            ans += str(f'\nMore space costs ${"%.2f"%self.p_limit}\n')
+            ans += str(f'\nYou have ${"%.2f"%self.money}\n')
 
         elif item == 'limit':
             ans += str('\nMore space means more customers')
@@ -283,4 +290,15 @@ class Model:
                    'shows prices for water, food and space')
         ans += str('\nRename        -> Renames your restaurant to a new'
                    ' name\n')
+        return ans
+
+    def about(self):
+        """ Tells the info of the program """
+        ans = ''
+        ans += str(f'\n{VERSION}')
+        ans += str(f'\nReleased on {DATE}')
+        ans += str('\nCopyright © Alvin Ran. All rights reserved\n')
+        ans += str('\nMade by Alvin Ran')
+        ans += str('\nContributors:')
+        ans += str('\nJun Ran\nZhiping Lou\n')
         return ans

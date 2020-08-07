@@ -2,6 +2,7 @@
 import json
 import time
 
+JSON_FILE = '/Users/alvinran/Restaurant/Restaurant.json'
 MNFE1 = ''
 try:
     from restaurant_controller import Controller
@@ -11,7 +12,7 @@ except ModuleNotFoundError:
     MNFE1 = 'True'
 
 try:
-    with open('/Users/alvinran/Restaurant/Restaurant.json') as f1:
+    with open(JSON_FILE) as f1:
         content = json.load(f1)
 except FileNotFoundError:
     content = {
@@ -34,8 +35,7 @@ except FileNotFoundError:
         "a_25_space": "False"
         }
 
-
-if not MNFE1:
+if MNFE1 == '':
     if content['name'] == '':
 
         name = input('Welcome! Please enter your restaurant\'s name:  ')
@@ -66,6 +66,36 @@ if not MNFE1:
             print(ans[0])
             time.sleep(4)
             print(ans[1])
+        elif REQUEST == 'reset':
+            string1 = input('Are you sure?  ')
+            string1 = str.lower(string1)
+            if MNFE1 == '':
+                with open(JSON_FILE, 'w') as temp_file:
+                    json.dump({
+                        "name": "",
+                        "quality": 1,
+                        "age": 0,
+                        "totalcustomers": 0,
+                        "money": 50,
+                        "food": 1,
+                        "water": 1,
+                        "p_food": 100,
+                        "p_water": 75,
+                        "e_water": 2,
+                        "e_food": 2,
+                        "a_100_totalcustomers": "False",
+                        "a_100_totalmoney": "False",
+                        "a_20_totalmoney": "False",
+                        "limit": 10,
+                        "p_limit": 75,
+                        "a_25_space": "False"
+                        }, temp_file)
+                print('\nReset successful\n')
+                break
+            else:
+                print('\nReset failed\n')
+
+
         else:
             ans = controller.request(REQUEST)
             print(ans)

@@ -17,6 +17,8 @@ class Controller:
             self.ans2 = ''
             self.ans3 = ''
             self.ans1 = ''
+            self.thing = ''
+            self.save_succesful = ''
 
     def request(self, string):
         """ Takes in a request from restaurant_view.py and sends it to \
@@ -28,15 +30,16 @@ class Controller:
                 self.ans2 = ans
 
             elif string == 'save':
-                self.aiyo.r_save()
-                self.ans2 = '\nProgress Saved\n'
+                self.save_succesful = self.aiyo.r_save()
+                self.ans2 = self.save_succesful
 
             elif string == 'info':
                 ans = self.aiyo.r_describe()
                 self.ans2 = ans
 
             elif string == 'shop':
-                string2 = input('What do you want to buy?  ')
+                prompt1 = self.aiyo.r_buy('prices') + '\nWhat do you want to buy?  '
+                string2 = input(prompt1)
                 string2 = str.lower(string2)
 
                 if string2 == 'food':
@@ -58,6 +61,8 @@ class Controller:
             elif string in ('help', 'h'):
                 self.ans1 = self.aiyo.help()
                 self.ans2 = self.ans1
+            elif string == 'about':
+                self.ans2 = self.aiyo.about()
 
             else:
                 self.ans2 = 'What?'
