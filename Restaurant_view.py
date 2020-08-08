@@ -5,7 +5,7 @@ import time
 JSON_FILE = '/Users/alvinran/Restaurant/Restaurant.json'
 MNFE1 = ''
 try:
-    from restaurant_controller import Controller
+    from Restaurant_controller import Controller
 except ModuleNotFoundError:
     print('\nPlease put Restaurant_controller.py and Restaurant_view.py'
           ' together in the same folder\n')

@@ -1,7 +1,7 @@
 """ Contains the class for controller """
 ANS_OVERRIDE = ''
 try:
-    from restaurant_model import Model
+    from Restaurant_model import Model
 except ModuleNotFoundError:
     ANS_OVERRIDE = ('\nPlease put Restaurant_Model.py and'
                     ' Restaurant_Controller.py together in the same folder\n')
@@ -38,7 +38,8 @@ class Controller:
                 self.ans2 = ans
 
             elif string == 'shop':
-                prompt1 = self.aiyo.r_buy('prices') + '\nWhat do you want to buy?  '
+                prompt1 = self.aiyo.r_buy('prices') + '\nWhat do you want to'\
+                    ' buy?  '
                 string2 = input(prompt1)
                 string2 = str.lower(string2)
 
@@ -63,6 +64,15 @@ class Controller:
                 self.ans2 = self.ans1
             elif string == 'about':
                 self.ans2 = self.aiyo.about()
+            elif string == 'ed':
+                string3 = '1. Unsuccessful Saves\n\nEnter a number that\'s '\
+                    'in front of what you want:  '
+                string2 = input(string3)
+                string2 = str.lower(string2)
+                if string2 == '1':
+                    self.ans2 = self.aiyo.ed('#1')
+                else:
+                    self.ans2 = 'What?'
 
             else:
                 self.ans2 = 'What?'

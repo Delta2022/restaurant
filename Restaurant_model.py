@@ -302,3 +302,41 @@ class Model:
         ans += str('\nContributors:')
         ans += str('\nJun Ran\nZhiping Lou\n')
         return ans
+    
+    def ed(self, item):
+        """ Error Documents """
+
+        ans = ''
+        if item == '#1':
+            ans += '\nSave Error:\n\nRestaurant has a single-slot save' \
+                ' system, The system uses a json file to store all the' \
+                ' info it needs to run the next time (default named ' \
+                ' restaurant.json).\n\nTo fix the \'Unsuccessful Save\'' \
+                ' error, you need to make a file ending with \'.json\'.\n' \
+                ' After making the file, you need to find the directory' \
+                ' for the file you just made (if you don\'t know how to,' \
+                ' search it up) and paste it into the json_file variables' \
+                ' at the start of Restaurant_model.py and' \
+                ' Restaurant_view.py.\nAfter doing that paste \n\n{ '\
+                '"name": "", '\
+                '"quality": 1, '\
+                '"age": 0, '\
+                '"totalcustomers": 0, '\
+                '"money": 50, '\
+                '"food": 1, '\
+                '"water": 1, '\
+                '"p_food": 100, '\
+                '"p_water": 75, '\
+                '"e_water": 2, '\
+                '"e_food": 2, '\
+                '"a_100_totalcustomers": "False",'\
+                '"a_100_totalmoney": "False",'\
+                '"a_20_totalmoney": "False",'\
+                '"limit": 10,'\
+                '"p_limit": 75,'\
+                '"a_25_space": "False"'\
+                '}\n\ninto the file.\n\nCreated by: Alvin Ran\nReleased ' \
+                'on Friday August 7 2020\n'
+        else:
+            ans += 'What?'
+        return ans
