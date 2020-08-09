@@ -2,8 +2,8 @@
 import random
 import json
 
-VERSION = 'Version 1.2.9 pre-2'
-DATE = 'August 6 2020'
+VERSION = 'Version 1.2.9 pre-3 unstable'
+DATE = 'August 8 2020'
 class Model:
     """ The Model class of the Restaurant """
     def __init__(self, name=""):
@@ -159,7 +159,7 @@ class Model:
                     }, temp_file)
             return '\nProgress Saved\n'
         else:
-            return '\nSave Unsuccessful\n'
+            return '\nSave Unsuccessful (ED #1)\n'
 
 
     def r_buy(self, item):
@@ -276,7 +276,7 @@ class Model:
         ans = ''
         ans += str('\n\nWhat to type  |  What it means')
         ans += str('\nOpen          -> Opens your restaurant')
-        ans += str('\nShop           -> Opens the Shop Menu')
+        ans += str('\nShop          -> Opens the Shop Menu')
         ans += str('\nExit          -> Exits and saves the program. If used'
                    ' in the Shop Menu, Exits the Shop Menu')
         ans += str('\nInfo          -> Gives infomation about your '
@@ -290,6 +290,8 @@ class Model:
                    'shows prices for water, food and space')
         ans += str('\nRename        -> Renames your restaurant to a new'
                    ' name\n')
+        ans +=     '\nED            -> Error Documentaion. Tells you how to'\
+            ' fix a bug or problem'
         return ans
 
     def about(self):
@@ -308,16 +310,16 @@ class Model:
 
         ans = ''
         if item == '#1':
-            ans += '\nSave Error:\n\nRestaurant has a single-slot save' \
+            ans = '\nSave Error:\n\nRestaurant has a single-slot save' \
                 ' system, The system uses a json file to store all the' \
-                ' info it needs to run the next time (default named ' \
-                ' restaurant.json).\n\nTo fix the \'Unsuccessful Save\'' \
+                ' info it needs to run the next time you want to play'  \
+                '.\n\nTo fix the \'Unsuccessful Save\'' \
                 ' error, you need to make a file ending with \'.json\'.\n' \
                 ' After making the file, you need to find the directory' \
                 ' for the file you just made (if you don\'t know how to,' \
                 ' search it up) and paste it into the json_file variables' \
                 ' at the start of Restaurant_model.py and' \
-                ' Restaurant_view.py.\nAfter doing that paste \n\n{ '\
+                ' Restaurant_view.py.\nAfter doing that, paste \n\n{ '\
                 '"name": "", '\
                 '"quality": 1, '\
                 '"age": 0, '\
@@ -337,6 +339,10 @@ class Model:
                 '"a_25_space": "False"'\
                 '}\n\ninto the file.\n\nCreated by: Alvin Ran\nReleased ' \
                 'on Friday August 7 2020\n'
+        elif item == '#2':
+            ans = '\nReset Error\n\nIf Resets fail, that\'s because the'\
+            ' program doesn\'t save when you exit. To fix it, go to #1 on ED'\
+            '\n\nCreated by: Alvin Ran\nReleased on Saturday August 8 2020\n'
         else:
             ans += 'What?'
         return ans
