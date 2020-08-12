@@ -290,7 +290,7 @@ class Model:
                    'shows prices for water, food and space')
         ans += str('\nRename        -> Renames your restaurant to a new'
                    ' name\n')
-        ans +=     '\nED            -> Error Documentaion. Tells you how to'\
+        ans += 'ED            -> Error Documentaion. Tells you how to'\
             ' fix a bug or problem'
         return ans
 
@@ -304,7 +304,7 @@ class Model:
         ans += str('\nContributors:')
         ans += str('\nJun Ran\nZhiping Lou\n')
         return ans
-    
+
     def ed(self, item):
         """ Error Documents """
 

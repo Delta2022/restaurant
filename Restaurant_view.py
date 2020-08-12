@@ -39,6 +39,8 @@ if MNFE1 == '':
     if content['name'] == '':
 
         name = input('Welcome! Please enter your restaurant\'s name:  ')
+        print('\nType \'help\' to show all commands and a brief description'
+              ' If you encounter a problem, type \'ed\' for solutions')
 
     else:
         name = content['name']
@@ -67,8 +69,8 @@ if MNFE1 == '':
             time.sleep(4)
             print(ans[1])
         elif REQUEST == 'reset':
-            string1 = input('Are you sure?  ')
-            string1 = str.lower(string1)
+            STRING1 = input('Are you sure?  ')
+            STRING1 = str.lower(STRING1)
             if MNFE1 == '':
                 with open(JSON_FILE, 'w') as temp_file:
                     json.dump({
@@ -93,7 +95,7 @@ if MNFE1 == '':
                 print('\nReset successful\n')
                 break
             else:
-                print('\nReset failed\n')
+                print('\nReset unsuccessful (ED #2)\n')
 
 
         else:

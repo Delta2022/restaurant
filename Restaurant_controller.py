@@ -65,7 +65,8 @@ class Controller:
             elif string == 'about':
                 self.ans2 = self.aiyo.about()
             elif string == 'ed':
-                string3 = '1. Unsuccessful Saves\n2. Unsuccessful Resets\n\nEnter a number that\'s '\
+                string3 = '1. Unsuccessful Saves\n2. Unsuccessful Resets\n\n' \
+                    'Enter a number that\'s '\
                     'in front of what you want:  '
                 string2 = input(string3)
                 string2 = str.lower(string2)
