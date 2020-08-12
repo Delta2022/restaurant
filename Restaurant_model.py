@@ -1,9 +1,12 @@
 """ Contains the class for the Model """
 import random
-import json
+from json import load,dump
+from datetime import datetime
 
 VERSION = 'Version 1.2.9 pre-3 unstable'
-DATE = 'August 8 2020'
+VERSION_DATE = 'August 8 2020'
+DATE = datetime.today()
+DATE = DATE.day
 class Model:
     """ The Model class of the Restaurant """
     def __init__(self, name=""):
@@ -32,7 +35,8 @@ class Model:
                 "a_20_totalmoney": "False",
                 "limit": 10,
                 "p_limit": 75,
-                "a_25_space": "False"
+                "a_25_space": "False",
+                "date": DATE
                 }
         self.name = name
         self.quality = self.file['quality']
@@ -155,7 +159,8 @@ class Model:
                     "a_20_totalmoney": str(self.a_20_totalmoney),
                     "limit": self.limit,
                     "p_limit": self.p_limit,
-                    "a_25_space": str(self.a_25_space)
+                    "a_25_space": str(self.a_25_space),
+                    "date": DATE + 1
                     }, temp_file)
             return '\nProgress Saved\n'
         else:
@@ -336,7 +341,8 @@ class Model:
                 '"a_20_totalmoney": "False",'\
                 '"limit": 10,'\
                 '"p_limit": 75,'\
-                '"a_25_space": "False"'\
+                '"a_25_space": "False",'\
+                '"date": (Put the day of the month here)'
                 '}\n\ninto the file.\n\nCreated by: Alvin Ran\nReleased ' \
                 'on Friday August 7 2020\n'
         elif item == '#2':
