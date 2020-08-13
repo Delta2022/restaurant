@@ -30,6 +30,7 @@ except FileNotFoundError:
         "a_100_totalcustomers": "False",
         "a_100_totalmoney": "False",
         "a_20_totalmoney": "False",
+        "a_1000_totalmoney": "False",
         "limit": 10,
         "p_limit": 75,
         "a_25_space": "False"
@@ -88,6 +89,7 @@ if MNFE1 == '':
                         "a_100_totalcustomers": "False",
                         "a_100_totalmoney": "False",
                         "a_20_totalmoney": "False",
+                        "a_1000_totalmoney": "False",
                         "limit": 10,
                         "p_limit": 75,
                         "a_25_space": "False"

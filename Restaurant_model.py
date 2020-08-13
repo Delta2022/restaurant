@@ -51,6 +51,7 @@ class Model:
         self.a_100_totalmoney = self.file['a_100_totalmoney']
         self.a_20_totalmoney = self.file['a_20_totalmoney']
         self.a_25_space = self.file['a_25_space']
+        self.a_1000_totalmoney = self.file['a_1000_totalmoney']
         self.limit = self.file['limit']
         self.p_limit = float(self.file['p_limit'])
         self.saved = 0
@@ -71,7 +72,7 @@ class Model:
         if self.add1 > self.limit:
 
             if self.add1 - self.limit == 1:
-                ans += str('\nYou have not enough space! 1 person is in queue')
+                ans += str('\nYou have not enough space! 1 person is in queue\n')
             else:
                 ans += str(f'\nYou have not enough space!'
                            f' {self.add1 - self.limit} people are in queue')
@@ -119,6 +120,7 @@ class Model:
         self.money -= self.expences
         if self.money > 0:
             ans += str(f'\nYou now have ${"%.2f"%self.money}\n')
+
         if self.a_100_totalmoney == "False" and self.money >= 100:
             ans += str('\n\nYou have unlocked an achievement: \'Start-up\''
                        ' ( Have $100 or more )\n')
@@ -127,6 +129,11 @@ class Model:
             ans += str('\n\nYou have unlocked an achievement: \'Failing\''
                        ' ( Have $20 or less )\n')
             self.a_20_totalmoney = "True"
+        if self.a_1000_totalmoney == "False" and self.money >= 1000:
+            ans += str('\n\nYou have unlocked an achievement: \'Rich\''
+                       ' ( Have $1000 or more)\n')
+            self.a_1000_totalmoney == "True"
+
         self.add1 = 0
         ans += str(f'\n{self.name} is closed\n')
 
@@ -153,6 +160,7 @@ class Model:
                     "a_100_totalcustomers": str(self.a_100_totalcustomers),
                     "a_100_totalmoney": str(self.a_100_totalmoney),
                     "a_20_totalmoney": str(self.a_20_totalmoney),
+                    "a_1000_totalmoney": str(self.a_1000_totalmoney),
                     "limit": self.limit,
                     "p_limit": self.p_limit,
                     "a_25_space": str(self.a_25_space)
@@ -279,7 +287,7 @@ class Model:
         ans += str('\nShop          -> Opens the Shop Menu')
         ans += str('\nExit          -> Exits and saves the program. If used'
                    ' in the Shop Menu, Exits the Shop Menu')
-        ans += str('\nInfo          -> Gives infomation about your '
+        ans += str('\nInfo          -> Gives infomation about your'
                    ' Restaurant')
         ans += str('\nSave          -> Saves your progress')
         ans += str('\nReset         -> Resets your progress')
@@ -291,7 +299,7 @@ class Model:
         ans += str('\nRename        -> Renames your restaurant to a new'
                    ' name\n')
         ans += 'ED            -> Error Documentaion. Tells you how to'\
-            ' fix a bug or problem'
+            ' fix a bug or problem\n'
         return ans
 
     def about(self):
@@ -334,6 +342,7 @@ class Model:
                 '"a_100_totalcustomers": "False",'\
                 '"a_100_totalmoney": "False",'\
                 '"a_20_totalmoney": "False",'\
+                '"a_1000_totalmoney": "False",'\
                 '"limit": 10,'\
                 '"p_limit": 75,'\
                 '"a_25_space": "False"'\
