@@ -1,9 +1,11 @@
+# Version Info in Restaurant_model.py
+
 """ Contains the view part of MVC """
 import json
 import time
 from datetime import date
 
-JSON_FILE = '/home/pi/restaurant/Restaurant.json'
+JSON_FILE = '/Users/alvinran/Restaurant/Restaurant.json'
 MNFE1 = ''
 DATE = date.today().day
 try:
@@ -35,7 +37,7 @@ except FileNotFoundError:
         "limit": 10,
         "p_limit": 75,
         "a_25_space": "False",
-        "time": datetime.today().day() + 1
+        "time": date.today().day + 1
         }
 
 if MNFE1 == '':

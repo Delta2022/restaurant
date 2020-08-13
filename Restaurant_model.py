@@ -9,8 +9,8 @@ DATE = date.today().day
 class Model:
     """ The Model class of the Restaurant """
     def __init__(self, name=""):
-        """ JSON reading and all var defined here """
-        self.json_file = '/home/pi/restaurant/Restaurant.json'
+        """ JSON reading and all variables defined here """
+        self.json_file = '/Users/alvinran/Restaurant/Restaurant.json'
         try:
             with open(self.json_file) as temp_file:
                 self.file = load(temp_file)
