@@ -1,9 +1,11 @@
 """ Contains the view part of MVC """
 import json
 import time
+from datetime import date
 
-JSON_FILE = '/Users/alvinran/Restaurant/Restaurant.json'
+JSON_FILE = '/home/pi/restaurant/Restaurant.json'
 MNFE1 = ''
+DATE = date.today().day
 try:
     from Restaurant_controller import Controller
 except ModuleNotFoundError:
@@ -32,7 +34,8 @@ except FileNotFoundError:
         "a_20_totalmoney": "False",
         "limit": 10,
         "p_limit": 75,
-        "a_25_space": "False"
+        "a_25_space": "False",
+        "time": datetime.today().day() + 1
         }
 
 if MNFE1 == '':
@@ -45,6 +48,9 @@ if MNFE1 == '':
     else:
         name = content['name']
         print(f'\nWelcome back to your restaurant: {name}')
+        if content['date'] == DATE:
+            print('Contradulations! For playing for at least 2 days in a '
+                'row! For that I\'ll give you 50 dollars!')
 
     controller = Controller(name)
     ans = controller.request('info')

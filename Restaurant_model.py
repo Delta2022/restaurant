@@ -1,20 +1,19 @@
 """ Contains the class for the Model """
 import random
-from json import load,dump
-from datetime import datetime
+from json import load, dump
+from datetime import date
 
 VERSION = 'Version 1.2.9 pre-3 unstable'
 VERSION_DATE = 'August 8 2020'
-DATE = datetime.today()
-DATE = DATE.day
+DATE = date.today().day
 class Model:
     """ The Model class of the Restaurant """
     def __init__(self, name=""):
         """ JSON reading and all var defined here """
-        self.json_file = '/Users/alvinran/Restaurant/Restaurant.json'
+        self.json_file = '/home/pi/restaurant/Restaurant.json'
         try:
             with open(self.json_file) as temp_file:
-                self.file = json.load(temp_file)
+                self.file = load(temp_file)
                 self.save = True
         except FileNotFoundError:
             self.save = False
@@ -36,7 +35,7 @@ class Model:
                 "limit": 10,
                 "p_limit": 75,
                 "a_25_space": "False",
-                "date": DATE
+                "date": DATE + 1
                 }
         self.name = name
         self.quality = self.file['quality']
@@ -62,6 +61,8 @@ class Model:
         self.add1 = 0
         self.add2 = 0
         self.add3 = 0
+        if self.file['date'] == DATE:
+            self.money += 50
 
     def r_open(self):
         """ Opens the Restaurant """
@@ -142,7 +143,7 @@ class Model:
         """ Saves the info """
         if self.save:
             with open(self.json_file, 'w') as temp_file:
-                json.dump({
+                dump({
                     "name": self.name,
                     "quality": self.quality,
                     "age": self.age,
@@ -342,7 +343,7 @@ class Model:
                 '"limit": 10,'\
                 '"p_limit": 75,'\
                 '"a_25_space": "False",'\
-                '"date": (Put the day of the month here)'
+                '"date": (Put the day of the month here)' \
                 '}\n\ninto the file.\n\nCreated by: Alvin Ran\nReleased ' \
                 'on Friday August 7 2020\n'
         elif item == '#2':
