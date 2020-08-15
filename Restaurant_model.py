@@ -1,26 +1,29 @@
 """ Contains the class for the Model """
 import random
-import json
+from json import load, dump
+from datetime import date
 
 VERSION = 'Version 1.2.9 pre-3 unstable'
-DATE = 'August 8 2020'
+VERSION_DATE = 'August 8 2020'
+DATE = date.today().day
 
 
 class Model:
     """ The Model class of the Restaurant """
     def __init__(self, name=""):
-        """ JSON reading and all var defined here """
+        """ JSON reading and all variables defined here """
         self.json_file = '/Users/alvinran/Restaurant/Restaurant.json'
         try:
             with open(self.json_file) as temp_file:
-                self.file = json.load(temp_file)
+                self.file = load(temp_file)
                 self.save = True
         except FileNotFoundError:
             self.save = False
             self.file = {
                 "name": "",
                 "quality": 1,
-                "age": 0,
+                "age": {"year": date.today().year, "month": date.today().month,
+                        "day": date.today().day},
                 "totalcustomers": 0,
                 "money": 50,
                 "food": 1,
@@ -35,11 +38,16 @@ class Model:
                 "a_1000_totalmoney": "False",
                 "limit": 10,
                 "p_limit": 75,
-                "a_25_space": "False"
+                "a_25_space": "False",
+                "date": DATE + 1,
+                "streak": 0
                 }
         self.name = name
         self.quality = self.file['quality']
         self.age = self.file['age']
+        if self.age["year"] == 2008:
+            self.age = {"year": date.today().year, "month": date.today().month,
+                        "day": date.today().day}
         self.totalcustomers = self.file['totalcustomers']
         self.money = float(self.file['money'])
         self.add3 = 0
@@ -62,6 +70,9 @@ class Model:
         self.add1 = 0
         self.add2 = 0
         self.add3 = 0
+        self.streak = self.file['streak']
+        if self.file['date'] == DATE:
+            self.money += self.streak * 10
 
     def r_open(self):
         """ Opens the Restaurant """
@@ -99,7 +110,22 @@ class Model:
                 ans += str('\nEverybody left\n')
             self.add1 = self.limit + self.saved
         self.totalcustomers += self.add1
-        self.age += 1
+
+        self.age["day"] += 1
+        if self.age["day"] > 30 and self.age['month'] in (4, 6, 9, 11):
+            self.age["month"] += 1
+            self.age["day"] = 1
+        elif self.age["day"] > 31 and self.age["month"] in (1, 3, 5, 7, 8,
+                                                            10, 12):
+            self.age["month"] += 1
+            self.age["day"] = 1
+        elif self.age["day"] > 28 and self.age["month"] == 2:
+            self.age["month"] += 1
+            self.age["day"] = 1
+        if self.age["month"] > 12:
+            self.age["year"] += 1
+            self.age["month"] = 1
+
         ans += str(f'\n{self.add1} people entered {self.name} today!')
         if self.a_100_totalcustomers == "False" and self.totalcustomers >= 100:
             ans += str('\n\nYou have unlocked an achievement: '
@@ -134,7 +160,7 @@ class Model:
         if self.a_1000_totalmoney == "False" and self.money >= 1000:
             ans += str('\n\nYou have unlocked an achievement: \'Rich\''
                        ' ( Have $1000 or more)\n')
-            self.a_1000_totalmoney == "True"
+            self.a_1000_totalmoney = "True"
 
         self.add1 = 0
         ans += str(f'\n{self.name} is closed\n')
@@ -147,7 +173,7 @@ class Model:
         """ Saves the info """
         if self.save:
             with open(self.json_file, 'w') as temp_file:
-                json.dump({
+                dump({
                     "name": self.name,
                     "quality": self.quality,
                     "age": self.age,
@@ -165,7 +191,10 @@ class Model:
                     "a_1000_totalmoney": str(self.a_1000_totalmoney),
                     "limit": self.limit,
                     "p_limit": self.p_limit,
-                    "a_25_space": str(self.a_25_space)
+                    "a_25_space": str(self.a_25_space),
+                    "date": DATE + 1,
+                    "streak": self.streak
+
                     }, temp_file)
             return '\nProgress Saved\n'
         else:
@@ -259,10 +288,8 @@ class Model:
         ans = ''
         ans += str(f'\nYour Restaurant {self.name}\'s information:\n')
 
-        if self.age == 1:
-            ans += str(f'\nAge                      =  {self.age} day')
-        else:
-            ans += str(f'\nAge                      =  {self.age} days')
+        ans += str(f'\nDate                     =  {self.age["year"]}-'
+                   f'{self.age["month"]}-{self.age["day"]}')
         ans += str(f'\nDaily Expenses           =  ${"%.2f"%self.expenses}')
         ans += str(f'\nMax customer capacity    =  {self.limit}')
         ans += str(f'\nTotal customers served   =  {self.totalcustomers}')
@@ -288,7 +315,7 @@ class Model:
         ans += str('\nShop          -> Opens the Shop Menu')
         ans += str('\nExit          -> Exits and saves the program. If used'
                    ' in the Shop Menu, Exits the Shop Menu')
-        ans += str('\nInfo          -> Gives information about your'
+        ans += str('\nInfo          -> Gives information about your '
                    ' Restaurant')
         ans += str('\nSave          -> Saves your progress')
         ans += str('\nReset         -> Resets your progress')
@@ -300,7 +327,8 @@ class Model:
         ans += str('\nRename        -> Renames your restaurant to a new'
                    ' name\n')
         ans += 'ED            -> Error Documentation. Tells you how to'\
-            ' fix a bug or problem\n'
+               ' fix a bug or problem\n'
+
         return ans
 
     def about(self):
@@ -328,34 +356,14 @@ class Model:
                 ' for the file you just made (if you don\'t know how to,' \
                 ' search it up) and paste it into the json_file variables' \
                 ' at the start of Restaurant_model.py and' \
-                ' Restaurant_view.py.\nAfter doing that, paste \n\n{ '\
-                '"name": "", '\
-                '"quality": 1, '\
-                '"age": 0, '\
-                '"totalcustomers": 0, '\
-                '"money": 50, '\
-                '"food": 1, '\
-                '"water": 1, '\
-                '"p_food": 100, '\
-                '"p_water": 75, '\
-                '"e_water": 2, '\
-                '"e_food": 2, '\
-                '"a_100_totalcustomers": "False",'\
-                '"a_100_totalmoney": "False",'\
-                '"a_20_totalmoney": "False",'\
-                '"a_1000_totalmoney": "False",'\
-                '"limit": 10,'\
-                '"p_limit": 75,'\
-                '"a_25_space": "False"'\
-                '}\n\ninto the file.\n\nCreated by: Alvin Ran\nReleased ' \
+                ' Restaurant_view.py.\n\nCreated by: Alvin Ran\nReleased ' \
                 'on Friday August 7 2020\n'
         elif item == '#2':
             ans = '\nReset Error\n\nIf Resets fail, that\'s because the'\
-                  ' program doesn\'t save when you exit. To fix it, ' \
-                  'go to #1 on ED'\
+                  ' program doesn\'t save when you exit. To fix it, go to #1'\
+                  ' on ED'\
                   '\n\nCreated by: Alvin Ran\nReleased on Saturday August 8 ' \
                   '2020\n'
         else:
             ans += 'What?'
         return ans
-
