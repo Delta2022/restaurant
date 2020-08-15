@@ -51,8 +51,8 @@ if MNFE1 == '':
         name = content['name']
         print(f'\nWelcome back to your restaurant: {name}')
         if content['date'] == DATE:
-            print('Congratulations! For playing for at least 2 days in a '
-                  'row! For that I\'ll give you 50 dollars!')
+            print('Contradulations! For playing for at least 2 days in a '
+                'row! For that I\'ll give you 50 dollars!')
 
     controller = Controller(name)
     ans = controller.request('info')
@@ -60,7 +60,7 @@ if MNFE1 == '':
 
     while True:
         if ans == '\nPlease put Restaurant_Model.py and' \
-                  ' Restaurant_Controller.py together in the same folder\n':
+        ' Restaurant_Controller.py together in the same folder\n':
             break
 
         REQUEST = input('What do you want to do?  ')
@@ -104,6 +104,7 @@ if MNFE1 == '':
                 break
             else:
                 print('\nReset unsuccessful (ED #2)\n')
+
 
         else:
             ans = controller.request(REQUEST)

@@ -6,8 +6,6 @@ from datetime import date
 VERSION = 'Version 1.2.9 pre-3 unstable'
 VERSION_DATE = 'August 8 2020'
 DATE = date.today().day
-
-
 class Model:
     """ The Model class of the Restaurant """
     def __init__(self, name=""):
@@ -34,7 +32,6 @@ class Model:
                 "a_100_totalcustomers": "False",
                 "a_100_totalmoney": "False",
                 "a_20_totalmoney": "False",
-                "a_1000_totalmoney": "False",
                 "limit": 10,
                 "p_limit": 75,
                 "a_25_space": "False",
@@ -52,7 +49,7 @@ class Model:
         self.p_food = self.file['p_food']
         self.e_water = float(self.file['e_water'])
         self.e_food = float(self.file['e_food'])
-        self.expenses = float(self.e_water + self.e_food)
+        self.expences = float(self.e_water + self.e_food)
         self.a_100_totalcustomers = self.file['a_100_totalcustomers']
         self.a_100_totalmoney = self.file['a_100_totalmoney']
         self.a_20_totalmoney = self.file['a_20_totalmoney']
@@ -71,6 +68,7 @@ class Model:
         """ Opens the Restaurant """
         ans = ''
         ans1 = ''
+        list1 = []
         ans1 += str(f'\n\n{self.name} is open!')
         ans1 += str('\n(you can only open once per day)\n')
         ans1 += str('\n\n...\n')
@@ -121,9 +119,9 @@ class Model:
                    f' ${"%.2f"%self.money}\n')
         self.add3 = 0
 
-        ans += str(f'\nYou need ${"%.2f"%self.expenses} to pay for your '
-                   'expenses\n')
-        self.money -= self.expenses
+        ans += str(f'\nYou need ${"%.2f"%self.expences} to pay for your '
+                   'expences\n')
+        self.money -= self.expences
         if self.money > 0:
             ans += str(f'\nYou now have ${"%.2f"%self.money}\n')
         if self.a_100_totalmoney == "False" and self.money >= 100:
@@ -169,6 +167,7 @@ class Model:
         else:
             return '\nSave Unsuccessful (ED #1)\n'
 
+
     def r_buy(self, item):
         """ Opens the shop menu """
         ans = ''
@@ -190,7 +189,7 @@ class Model:
                     self.e_water *= 3.5
                     self.p_water *= 2.5
                     self.quality += 2
-                    self.expenses = float(self.e_water + self.e_food)
+                    self.expences = float(self.e_water + self.e_food)
                     ans += str(f'\nSuccessful!\n{self.name} has {self.quality}'
                                f' quality now! Water now costs'
                                f' ${"%.2f"%self.e_water} per day.\n')
@@ -198,8 +197,7 @@ class Model:
                 ans += str('\nCancelled\n')
 
         elif item == 'food':
-            ans += str('\nBetter quality food brings in more customers and '
-                       'has a'
+            ans += str('\nBetter food brings in more customers and has a'
                        ' higher chance of customers staying in the line')
             ans += str(f'\nBetter food costs ${"%.2f"%self.p_food}')
             ans += str(f'\nYou have ${"%.2f"%self.money}')
@@ -215,7 +213,7 @@ class Model:
                     self.e_food *= 3.5
                     self.p_food *= 2.5
                     self.quality += 2
-                    self.expenses = float(self.e_water + self.e_food)
+                    self.expences = float(self.e_water + self.e_food)
                     ans += str(f'\nSuccessful!\n{self.name} has'
                                f' {self.quality} quality now! Food now costs'
                                f' ${"%.2f"%self.e_food} per day\n')
@@ -223,8 +221,8 @@ class Model:
                 ans += str('\nCancelled\n')
 
         elif item == 'prices':
-            ans += str(f'\nBetter water quality costs ${"%.2f"%self.p_water}')
-            ans += str(f'\nBetter food quality costs ${"%.2f"%self.p_food}')
+            ans += str(f'\nWater costs ${"%.2f"%self.p_water}')
+            ans += str(f'\nFood costs ${"%.2f"%self.p_food}')
             ans += str(f'\nMore space costs ${"%.2f"%self.p_limit}\n')
             ans += str(f'\nYou have ${"%.2f"%self.money}\n')
 
@@ -256,13 +254,13 @@ class Model:
     def r_describe(self):
         """ Describes your restaurant """
         ans = ''
-        ans += str(f'\nYour Restaurant {self.name}\'s information:\n')
+        ans += str(f'\nYour Restaurant {self.name}\'s infomation:\n')
 
         if self.age == 1:
             ans += str(f'\nAge                      =  {self.age} day')
         else:
             ans += str(f'\nAge                      =  {self.age} days')
-        ans += str(f'\nDaily Expenses           =  ${"%.2f"%self.expenses}')
+        ans += str(f'\nDaily Expences           =  ${"%.2f"%self.expences}')
         ans += str(f'\nMax customer capacity    =  {self.limit}')
         ans += str(f'\nTotal customers served   =  {self.totalcustomers}')
         ans += str(f'\nMoney                    =  ${"%.2f"%self.money}\n')
@@ -287,7 +285,7 @@ class Model:
         ans += str('\nShop          -> Opens the Shop Menu')
         ans += str('\nExit          -> Exits and saves the program. If used'
                    ' in the Shop Menu, Exits the Shop Menu')
-        ans += str('\nInfo          -> Gives information about your '
+        ans += str('\nInfo          -> Gives infomation about your '
                    ' Restaurant')
         ans += str('\nSave          -> Saves your progress')
         ans += str('\nReset         -> Resets your progress')
@@ -298,7 +296,7 @@ class Model:
                    'shows prices for water, food and space')
         ans += str('\nRename        -> Renames your restaurant to a new'
                    ' name\n')
-        ans += 'ED            -> Error Documentation. Tells you how to'\
+        ans += 'ED            -> Error Documentaion. Tells you how to'\
             ' fix a bug or problem'
         return ans
 
@@ -345,14 +343,13 @@ class Model:
                 '"limit": 10,'\
                 '"p_limit": 75,'\
                 '"a_25_space": "False",'\
-                '"date": (Put tomorrow\'s date here)' \
+                '"date": (Put the day of the month here)' \
                 '}\n\ninto the file.\n\nCreated by: Alvin Ran\nReleased ' \
                 'on Friday August 7 2020\n'
         elif item == '#2':
             ans = '\nReset Error\n\nIf Resets fail, that\'s because the'\
-                  ' program doesn\'t save when you exit. To fix it, go to #1' \
-                  ' on ED\n\nCreated by: Alvin Ran\nReleased on Saturday' \
-                  ' August 8 2020'
+            ' program doesn\'t save when you exit. To fix it, go to #1 on ED'\
+            '\n\nCreated by: Alvin Ran\nReleased on Saturday August 8 2020\n'
         else:
             ans += 'What?'
         return ans
