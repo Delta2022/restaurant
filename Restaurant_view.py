@@ -1,11 +1,14 @@
 # Version Info in Restaurant_model.py
-
+# TODO: Check Restaurant for bugs and/or errors
 """ Contains the view part of MVC """
 import json
 import time
 from datetime import date
+from os import path
 
-JSON_FILE = '/Users/alvinran/Restaurant/Restaurant.json'
+JSON_FILE = path.abspath(__file__)
+JSON_FILE = JSON_FILE.replace('.py', '.json')
+JSON_FILE = JSON_FILE.replace('_view', '')
 MNFE1 = ''
 DATE = date.today().day
 
@@ -86,6 +89,7 @@ if MNFE1 == '':
                   ' in a'
                   f' row! For that I\'ll give you {content["streak"] * 10}'
                   f' dollars!')
+
 
     controller = Controller(name)
     ans = controller.request('info')

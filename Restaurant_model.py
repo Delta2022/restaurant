@@ -73,6 +73,9 @@ class Model:
         self.streak = self.file['streak']
         if self.file['date'] == DATE:
             self.money += self.streak * 10
+            self.streak += 1
+        elif self.file['date'] < DATE:
+            self.streak = 0
 
     def r_open(self):
         """ Opens the Restaurant """
@@ -348,16 +351,16 @@ class Model:
         ans = ''
         if item == '#1':
             ans = '\nSave Error:\n\nRestaurant has a single-slot save' \
-                ' system, The system uses a json file to store all the' \
-                ' info it needs to run the next time you want to play'  \
-                '.\n\nTo fix the \'Unsuccessful Save\'' \
-                ' error, you need to make a file ending with \'.json\'.\n' \
-                ' After making the file, you need to find the directory' \
-                ' for the file you just made (if you don\'t know how to,' \
-                ' search it up) and paste it into the json_file variables' \
-                ' at the start of Restaurant_model.py and' \
-                ' Restaurant_view.py.\n\nCreated by: Alvin Ran\nReleased ' \
-                'on Friday August 7 2020\n'
+                  ' system, The system uses a json file to store all the' \
+                  ' info it needs to run the next time you want to play'  \
+                  '.\n\nTo fix the \'Unsuccessful Save\'' \
+                  ' error, you need to make a file called ' \
+                  '\'Restaurant.json\' in the same file as ' \
+                  'the other Restaurant files.\n\n' \
+                  ' And you\'re done! When you exit next time, you\'re ' \
+                  'progress would be saved' \
+                  ' Restaurant_view.py.\n\nCreated by: Alvin Ran\nReleased ' \
+                  'on Friday August 7 2020\n'
         elif item == '#2':
             ans = '\nReset Error\n\nIf Resets fail, that\'s because the'\
                   ' program doesn\'t save when you exit. To fix it, go to #1'\
