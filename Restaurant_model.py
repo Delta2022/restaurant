@@ -23,7 +23,8 @@ class Model:
                 "name": "",
                 "quality": 1,
                 "age": {"year": date.today().year, "month": date.today().month,
-                        "day": date.today().day},
+                        "day": date.today().day, "dow": date.today(
+                        ).weekday()},
                 "totalcustomers": 0,
                 "money": 50,
                 "food": 1,
@@ -47,7 +48,7 @@ class Model:
         self.age = self.file['age']
         if self.age["year"] == 2008:
             self.age = {"year": date.today().year, "month": date.today().month,
-                        "day": date.today().day}
+                        "day": date.today().day, "dow": date.today().weekday()}
         self.totalcustomers = self.file['totalcustomers']
         self.money = float(self.file['money'])
         self.add3 = 0
@@ -70,6 +71,7 @@ class Model:
         self.add1 = 0
         self.add2 = 0
         self.add3 = 0
+        self.day_name = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
         self.streak = self.file['streak']
         if self.file['date'] == DATE:
             self.money += self.streak * 10
@@ -115,6 +117,7 @@ class Model:
         self.totalcustomers += self.add1
 
         self.age["day"] += 1
+        self.age["dow"] += 1
         if self.age["day"] > 30 and self.age['month'] in (4, 6, 9, 11):
             self.age["month"] += 1
             self.age["day"] = 1
@@ -125,6 +128,8 @@ class Model:
         elif self.age["day"] > 28 and self.age["month"] == 2:
             self.age["month"] += 1
             self.age["day"] = 1
+        if self.age["dow"] > 6:
+            self.age["dow"] = 0
         if self.age["month"] > 12:
             self.age["year"] += 1
             self.age["month"] = 1
@@ -291,8 +296,9 @@ class Model:
         ans = ''
         ans += str(f'\nYour Restaurant {self.name}\'s information:\n')
 
-        ans += str(f'\nDate                     =  {self.age["year"]}-'
-                   f'{self.age["month"]}-{self.age["day"]}')
+        '''ans += str(f'\nDate                     =  '
+                   f'{self.day_name[self.age["dow"]]}, {self.age["month"]} '
+                   f'{self.age["day"]} {self.age["year"]}')'''
         ans += str(f'\nDaily Expenses           =  ${"%.2f"%self.expenses}')
         ans += str(f'\nMax customer capacity    =  {self.limit}')
         ans += str(f'\nTotal customers served   =  {self.totalcustomers}')

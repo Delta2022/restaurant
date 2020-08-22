@@ -11,23 +11,11 @@ JSON_FILE = JSON_FILE.replace('.py', '.json')
 JSON_FILE = JSON_FILE.replace('_view', '')
 MNFE1 = ''
 DATE = date.today().day
-
-try:
-    from Restaurant_controller import Controller
-except ModuleNotFoundError:
-    print('\nPlease put Restaurant_controller.py and Restaurant_view.py'
-          ' together in the same folder\n')
-    MNFE1 = 'True'
-
-try:
-    with open(JSON_FILE) as f1:
-        content = json.load(f1)
-except json.decoder.JSONDecodeError:
-    with open(JSON_FILE, 'w') as f1:
-        json.dump({
+json_dict = {
                     "name": "",
                     "quality": 1,
-                    "age": {"year": 2008, "month": 2, "day": 27},
+                    "age": {"year": 2008, "month": 2, "day": 27, "dow":
+                            date.today().weekday()},
                     "totalcustomers": 0,
                     "money": 50,
                     "food": 1,
@@ -45,33 +33,25 @@ except json.decoder.JSONDecodeError:
                     "a_25_space": "False",
                     "date": DATE + 1,
                     "streak": 0
-                    }, f1)
+                    }
+
+try:
+    from Restaurant_controller import Controller
+except ModuleNotFoundError:
+    print('\nPlease put Restaurant_controller.py and Restaurant_view.py'
+          ' together in the same folder\n')
+    MNFE1 = 'True'
+
+try:
+    with open(JSON_FILE) as f1:
+        content = json.load(f1)
+except json.decoder.JSONDecodeError:
+    with open(JSON_FILE, 'w') as f1:
+        json.dump(json_dict, f1)
     with open(JSON_FILE) as f1:
         content = json.load(f1)
 except FileNotFoundError:
-    content = {
-        "name": "",
-        "quality": 1,
-        "age": {"year": date.today().year, "month": date.today().month,
-                "day": date.today().day},
-        "totalcustomers": 0,
-        "money": 50,
-        "food": 1,
-        "water": 1,
-        "p_food": 100,
-        "p_water": 75,
-        "e_water": 2,
-        "e_food": 2,
-        "a_100_totalcustomers": "False",
-        "a_100_totalmoney": "False",
-        "a_20_totalmoney": "False",
-        "a_1000_totalmoney": "False",
-        "limit": 10,
-        "p_limit": 75,
-        "a_25_space": "False",
-        "time": date.today().day + 1,
-        "streak": 0
-        }
+    content = json_dict
 
 if MNFE1 == '':
     if content['name'] == '':
@@ -89,7 +69,6 @@ if MNFE1 == '':
                   ' in a'
                   f' row! For that I\'ll give you {content["streak"] * 10}'
                   f' dollars!')
-
 
     controller = Controller(name)
     ans = controller.request('info')
@@ -118,28 +97,7 @@ if MNFE1 == '':
             STRING1 = str.lower(STRING1)
             if MNFE1 == '':
                 with open(JSON_FILE, 'w') as temp_file:
-                    json.dump({
-                        "name": "",
-                        "quality": 1,
-                        "age": {"year": 2008, "month": 2, "day": 27},
-                        "totalcustomers": 0,
-                        "money": 50,
-                        "food": 1,
-                        "water": 1,
-                        "p_food": 100,
-                        "p_water": 75,
-                        "e_water": 2,
-                        "e_food": 2,
-                        "a_100_totalcustomers": "False",
-                        "a_100_totalmoney": "False",
-                        "a_20_totalmoney": "False",
-                        "a_1000_totalmoney": "False",
-                        "limit": 10,
-                        "p_limit": 75,
-                        "a_25_space": "False",
-                        "date": DATE + 1,
-                        "streak": 0
-                        }, temp_file)
+                    json.dump(json_dict, temp_file)
                 print('\nReset successful\n')
                 break
             else:
