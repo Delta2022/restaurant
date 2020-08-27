@@ -3,8 +3,8 @@ import random
 from json import load, dump
 from datetime import date
 
-VERSION = 'Version 1.2.9 pre-3 unstable'
-VERSION_DATE = 'August 8 2020'
+VERSION = 'Version 1.3.0 pre-1'
+VERSION_DATE = 'August 27 2020'
 DATE = date.today().day
 
 
@@ -23,7 +23,8 @@ class Model:
                 "name": "",
                 "quality": 1,
                 "age": {"year": date.today().year, "month": date.today().month,
-                        "day": date.today().day},
+                        "day": date.today().day, "dow": date.today(
+                                                ).weekday()},
                 "totalcustomers": 0,
                 "money": 50,
                 "food": 1,
@@ -47,7 +48,7 @@ class Model:
         self.age = self.file['age']
         if self.age["year"] == 2008:
             self.age = {"year": date.today().year, "month": date.today().month,
-                        "day": date.today().day}
+                        "day": date.today().day, "dow": date.today().weekday()}
         self.totalcustomers = self.file['totalcustomers']
         self.money = float(self.file['money'])
         self.add3 = 0
@@ -70,6 +71,11 @@ class Model:
         self.add1 = 0
         self.add2 = 0
         self.add3 = 0
+        self.day_names = ["Monday", "Tuesday", "Wednesday", "Thursday",
+                          "Friday",
+                          "Saturday", "Sunday"]
+        self.month_names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+                            'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         self.streak = self.file['streak']
         if self.file['date'] == DATE:
             self.money += self.streak * 10
@@ -81,95 +87,127 @@ class Model:
         """ Opens the Restaurant """
         ans = ''
         ans1 = ''
-        ans1 += str(f'\n\n{self.name} is open!')
-        ans1 += str('\n(you can only open once per day)\n')
-        ans1 += str('\n\n...\n')
-        self.add1 = random.randrange(0, 2*self.food + 12)
-        if self.add1 > self.limit:
+        if not self.age['dow'] in (1, 2):
+            ans1 += str(f'\n\n{self.name} is open!')
+            ans1 += str('\n(you can only open once per day)\n')
+            ans1 += str('\n\n...\n')
+            self.add1 = random.randrange(0, 2*self.food + 12)
+            if self.add1 > self.limit:
 
-            if self.add1 - self.limit == 1:
-                ans += str('\nYou have not enough space! 1 person is in queue')
-            else:
-                ans += str(f'\nYou have not enough space!'
-                           f' {self.add1 - self.limit} people are in queue')
-            if self.food - 6 < self.add1 - self.limit:
-                if self.food - 1 != self.add1 - self.limit - 1:
-                    self.saved = random.randrange(self.food - 1, self.add1 -
-                                                  self.limit-1, 1)
+                if self.add1 - self.limit == 1:
+                    ans += str('\nYou have not enough space! 1 person is in '
+                               'queue')
                 else:
-                    self.saved = 0
-            else:
-                self.saved = random.randrange(self.add1 - self.limit - 5,
-                                              self.add1 - self.limit-1, 1)
-            if self.saved > 0:
-                if self.saved == 1:
-                    ans += str('\n1 person waited but'
-                               f' {self.add1 - self.limit - self.saved} people'
-                               ' left\n')
+                    ans += str(f'\nYou have not enough space!'
+                               f' {self.add1 - self.limit} people are in '
+                               f'queue')
+                if self.food - 6 < self.add1 - self.limit:
+                    if self.food - 1 != self.add1 - self.limit - 1:
+                        self.saved = random.randrange(self.food - 1,
+                                                      self.add1 -
+                                                      self.limit-1, 1)
+                    else:
+                        self.saved = 0
                 else:
-                    ans += str(f'\n{self.saved} people waited but '
-                               f'{self.add1 - self.limit - self.saved} left\n')
-            else:
-                ans += str('\nEverybody left\n')
-            self.add1 = self.limit + self.saved
-        self.totalcustomers += self.add1
+                    self.saved = random.randrange(self.add1 - self.limit - 5,
+                                                  self.add1 - self.limit-1, 1)
+                if self.saved > 0:
+                    if self.saved == 1:
+                        ans += str('\n1 person waited but'
+                                   f' {self.add1 - self.limit - self.saved} '
+                                   f'people'
+                                   ' left\n')
+                    else:
+                        ans += str(f'\n{self.saved} people waited but '
+                                   f'{self.add1 - self.limit - self.saved} '
+                                   f'left\n')
+                else:
+                    ans += str('\nEverybody left\n')
+                self.add1 = self.limit + self.saved
+            self.totalcustomers += self.add1
 
-        self.age["day"] += 1
-        if self.age["day"] > 30 and self.age['month'] in (4, 6, 9, 11):
-            self.age["month"] += 1
-            self.age["day"] = 1
-        elif self.age["day"] > 31 and self.age["month"] in (1, 3, 5, 7, 8,
-                                                            10, 12):
-            self.age["month"] += 1
-            self.age["day"] = 1
-        elif self.age["day"] > 28 and self.age["month"] == 2:
-            self.age["month"] += 1
-            self.age["day"] = 1
-        if self.age["month"] > 12:
-            self.age["year"] += 1
-            self.age["month"] = 1
+            self.age["day"] += 1
+            self.age["dow"] += 1
+            if self.age["day"] > 30 and self.age['month'] in (4, 6, 9, 11):
+                self.age["month"] += 1
+                self.age["day"] = 1
+            elif self.age["day"] > 31 and self.age["month"] in (1, 3, 5, 7, 8,
+                                                                10, 12):
+                self.age["month"] += 1
+                self.age["day"] = 1
+            elif self.age["day"] > 28 and self.age["month"] == 2:
+                self.age["month"] += 1
+                self.age["day"] = 1
 
-        ans += str(f'\n{self.add1} people entered {self.name} today!')
-        if self.a_100_totalcustomers == "False" and self.totalcustomers >= 100:
-            ans += str('\n\nYou have unlocked an achievement: '
-                       '\'Popular Restaurant\' '
-                       '( Have 100 customers total visit your restaurant )\n')
-            self.a_100_totalcustomers = "True"
-        for i in range(self.add1):
-            self.add2 = float(random.randrange(1, 2*self.water + 5))
-            self.add3 = float(self.add3)
-            self.gst = self.add2 * 0.05
-            self.add2 = round(1.05*self.add2, 2)
-            self.add3 += self.add2
-            self.money += self.add2
-        ans += str(f'\n\nYou earned ${"%.2f"%self.add3} + GST for a total of'
-                   f' ${"%.2f"%self.money}\n')
-        self.add3 = 0
+            if self.age["month"] > 12:
+                self.age["year"] += 1
+                self.age["month"] = 1
 
-        ans += str(f'\nYou need ${"%.2f"%self.expenses} to pay for your '
-                   'expenses\n')
-        self.money -= self.expenses
-        if self.money > 0:
-            ans += str(f'\nYou now have ${"%.2f"%self.money}\n')
+            if self.age["dow"] > 6:
+                self.age["dow"] = 0
 
-        if self.a_100_totalmoney == "False" and self.money >= 100:
-            ans += str('\n\nYou have unlocked an achievement: \'Start-up\''
-                       ' ( Have $100 or more )\n')
-            self.a_100_totalmoney = "True"
-        if self.a_20_totalmoney == "False" and self.money <= 20:
-            ans += str('\n\nYou have unlocked an achievement: \'Failing\''
-                       ' ( Have $20 or less )\n')
-            self.a_20_totalmoney = "True"
-        if self.a_1000_totalmoney == "False" and self.money >= 1000:
-            ans += str('\n\nYou have unlocked an achievement: \'Rich\''
-                       ' ( Have $1000 or more)\n')
-            self.a_1000_totalmoney = "True"
+            ans += str(f'\n{self.add1} people entered {self.name} today!')
+            if self.a_100_totalcustomers == "False" and self.totalcustomers \
+                    >= 100:
+                ans += str('\n\nYou have unlocked an achievement: '
+                           '\'Popular Restaurant\' '
+                           '( Have 100 customers total visit your restaurant'
+                           ' )\n')
+                self.a_100_totalcustomers = "True"
+            for i in range(self.add1):
+                self.add2 = float(random.randrange(1, 2*self.water + 5))
+                self.add3 = float(self.add3)
+                self.gst = self.add2 * 0.05
+                self.add2 = round(1.05*self.add2, 2)
+                self.add3 += self.add2
+                self.money += self.add2
+            ans += str(f'\n\nYou earned ${"%.2f"%self.add3} + GST for a '
+                       f'total of'
+                       f' ${"%.2f"%self.money}\n')
+            self.add3 = 0
 
-        self.add1 = 0
-        ans += str(f'\n{self.name} is closed\n')
+            ans += str(f'\nYou need ${"%.2f"%self.expenses} to pay for your '
+                       'expenses\n')
+            self.money -= self.expenses
+            if self.money > 0:
+                ans += str(f'\nYou now have ${"%.2f"%self.money}\n')
 
-        list1 = [ans1, ans]
+            if self.a_100_totalmoney == "False" and self.money >= 100:
+                ans += str('\n\nYou have unlocked an achievement: \'Start-up\''
+                           ' ( Have $100 or more )\n')
+                self.a_100_totalmoney = "True"
+            if self.a_20_totalmoney == "False" and self.money <= 20:
+                ans += str('\n\nYou have unlocked an achievement: \'Failing\''
+                           ' ( Have $20 or less )\n')
+                self.a_20_totalmoney = "True"
+            if self.a_1000_totalmoney == "False" and self.money >= 1000:
+                ans += str('\n\nYou have unlocked an achievement: \'Rich\''
+                           ' ( Have $1000 or more)\n')
+                self.a_1000_totalmoney = "True"
 
+            self.add1 = 0
+            ans += str(f'\n{self.name} is closed\n')
+
+            list1 = [ans1, ans]
+
+        else:
+            list1 = ['Today is a break day', f'{self.name} is closed']
+            self.age["day"] += 1
+            self.age["dow"] += 1
+            if self.age["day"] > 30 and self.age['month'] in (4, 6, 9, 11):
+                self.age["month"] += 1
+                self.age["day"] = 1
+            elif self.age["day"] > 31 and self.age["month"] in (1, 3, 5, 7, 8,
+                                                                10, 12):
+                self.age["month"] += 1
+                self.age["day"] = 1
+            elif self.age["day"] > 28 and self.age["month"] == 2:
+                self.age["month"] += 1
+                self.age["day"] = 1
+
+            if self.age["month"] > 12:
+                self.age["year"] += 1
+                self.age["month"] = 1
         return list1
 
     def r_save(self):
@@ -289,10 +327,13 @@ class Model:
     def r_describe(self):
         """ Describes your restaurant """
         ans = ''
+        # self.age["dow"] = date.today().weekday()
         ans += str(f'\nYour Restaurant {self.name}\'s information:\n')
 
-        ans += str(f'\nDate                     =  {self.age["year"]}-'
-                   f'{self.age["month"]}-{self.age["day"]}')
+        ans += str(f'\nDate                     =  '
+                   f'{self.day_names[self.age["dow"]]}, '
+                   f'{self.month_names[self.age["month"]]} '
+                   f'{self.age["day"]}, {self.age["year"]}')
         ans += str(f'\nDaily Expenses           =  ${"%.2f"%self.expenses}')
         ans += str(f'\nMax customer capacity    =  {self.limit}')
         ans += str(f'\nTotal customers served   =  {self.totalcustomers}')

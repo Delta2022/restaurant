@@ -11,20 +11,7 @@ JSON_FILE = JSON_FILE.replace('.py', '.json')
 JSON_FILE = JSON_FILE.replace('_view', '')
 MNFE1 = ''
 DATE = date.today().day
-
-try:
-    from Restaurant_controller import Controller
-except ModuleNotFoundError:
-    print('\nPlease put Restaurant_controller.py and Restaurant_view.py'
-          ' together in the same folder\n')
-    MNFE1 = 'True'
-
-try:
-    with open(JSON_FILE) as f1:
-        content = json.load(f1)
-except json.decoder.JSONDecodeError:
-    with open(JSON_FILE, 'w') as f1:
-        json.dump({
+JSON_DICT = {
                     "name": "",
                     "quality": 1,
                     "age": {"year": 2008, "month": 2, "day": 27},
@@ -45,41 +32,39 @@ except json.decoder.JSONDecodeError:
                     "a_25_space": "False",
                     "date": DATE + 1,
                     "streak": 0
-                    }, f1)
+                    }
+
+try:
+    from Restaurant_controller import Controller
+except ModuleNotFoundError:
+    print('\nPlease put Restaurant_controller.py and Restaurant_view.py'
+          ' together in the same folder\n')
+    MNFE1 = 'True'
+
+try:
+    with open(JSON_FILE) as f1:  # Loads the Restaurant.json code
+        content = json.load(f1)
+except json.decoder.JSONDecodeError:  # If there is no code, it puts in the
+    # code
+    with open(JSON_FILE, 'w') as f1:
+        json.dump(JSON_DICT, f1)
     with open(JSON_FILE) as f1:
         content = json.load(f1)
-except FileNotFoundError:
-    content = {
-        "name": "",
-        "quality": 1,
-        "age": {"year": date.today().year, "month": date.today().month,
-                "day": date.today().day},
-        "totalcustomers": 0,
-        "money": 50,
-        "food": 1,
-        "water": 1,
-        "p_food": 100,
-        "p_water": 75,
-        "e_water": 2,
-        "e_food": 2,
-        "a_100_totalcustomers": "False",
-        "a_100_totalmoney": "False",
-        "a_20_totalmoney": "False",
-        "a_1000_totalmoney": "False",
-        "limit": 10,
-        "p_limit": 75,
-        "a_25_space": "False",
-        "time": date.today().day + 1,
-        "streak": 0
-        }
+except FileNotFoundError:  # If there is no code, values are in default
+    content = JSON_DICT[:]
+    content["age"] = {"year": date.today().year, "month": date.today().month,
+                      "day": date.today().day}
+    print(content)
 
-if MNFE1 == '':
+if MNFE1 == '':  # if Restaurant.json doesn't exist, it tells the user.
     if content['name'] == '':
 
         name = input('Welcome! Please enter your restaurant\'s name:  ')
-        print('\nType \'help\' to show all commands and a brief description'
+        print('\nType \'help\' to show all commands and a brief description.'
               ' If you encounter a problem, type \'ed\' for solutions')
-        age = {date.today().year, date.today().month, date.today().day}
+        content["age"] = {date.today().year, date.today().month, date.today(
+
+        ).day}
 
     else:
         name = content['name']
@@ -89,7 +74,6 @@ if MNFE1 == '':
                   ' in a'
                   f' row! For that I\'ll give you {content["streak"] * 10}'
                   f' dollars!')
-
 
     controller = Controller(name)
     ans = controller.request('info')
@@ -118,28 +102,7 @@ if MNFE1 == '':
             STRING1 = str.lower(STRING1)
             if MNFE1 == '':
                 with open(JSON_FILE, 'w') as temp_file:
-                    json.dump({
-                        "name": "",
-                        "quality": 1,
-                        "age": {"year": 2008, "month": 2, "day": 27},
-                        "totalcustomers": 0,
-                        "money": 50,
-                        "food": 1,
-                        "water": 1,
-                        "p_food": 100,
-                        "p_water": 75,
-                        "e_water": 2,
-                        "e_food": 2,
-                        "a_100_totalcustomers": "False",
-                        "a_100_totalmoney": "False",
-                        "a_20_totalmoney": "False",
-                        "a_1000_totalmoney": "False",
-                        "limit": 10,
-                        "p_limit": 75,
-                        "a_25_space": "False",
-                        "date": DATE + 1,
-                        "streak": 0
-                        }, temp_file)
+                    json.dump(JSON_DICT, temp_file)
                 print('\nReset successful\n')
                 break
             else:

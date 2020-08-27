@@ -18,7 +18,7 @@ class Controller:
             self.ans3 = ''
             self.ans1 = ''
             self.thing = ''
-            self.save_succesful = ''
+            self.save_successful = ''
 
     def request(self, string):
         """ Takes in a request from restaurant_view.py and sends it to \
@@ -30,8 +30,8 @@ class Controller:
                 self.ans2 = ans
 
             elif string == 'save':
-                self.save_succesful = self.aiyo.r_save()
-                self.ans2 = self.save_succesful
+                self.save_successful = self.aiyo.r_save()
+                self.ans2 = self.save_successful
 
             elif string == 'info':
                 ans = self.aiyo.r_describe()
