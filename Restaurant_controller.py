@@ -34,7 +34,7 @@ class Controller:
                 self.ans2 = self.save_successful
 
             elif string == 'info':
-                ans = self.aiyo.r_describe
+                ans = self.aiyo.r_describe()
                 self.ans2 = ans
 
             elif string == 'shop':
