@@ -64,18 +64,6 @@ class Controller:
                 self.ans2 = self.ans1
             elif string == 'about':
                 self.ans2 = self.aiyo.about()
-            elif string == 'ed':
-                string3 = '1. Unsuccessful Saves\n2. Unsuccessful Resets\n\n' \
-                    'Enter a number that\'s '\
-                    'in front of what you want:  '
-                string2 = input(string3)
-                string2 = str.lower(string2)
-                if string2 == '1':
-                    self.ans2 = self.aiyo.ed('#1')
-                elif string2 == '2':
-                    self.ans2 = self.aiyo.ed('#2')
-                else:
-                    self.ans2 = 'What?'
 
             else:
                 self.ans2 = 'What?'

@@ -9,6 +9,7 @@ from os import path
 JSON_FILE = path.abspath(__file__)
 JSON_FILE = JSON_FILE.replace('.py', '.json')
 JSON_FILE = JSON_FILE.replace('_view', '')
+JSON_FILE = JSON_FILE.replace('R', '.R')
 MNFE1 = ''
 DATE = date.today().day
 JSON_DICT = {
@@ -43,7 +44,7 @@ except ModuleNotFoundError:
     MNFE1 = 'True'
 
 try:
-    with open(JSON_FILE) as f1:  # Loads the Restaurant.json code
+    with open(JSON_FILE) as f1:  # Loads the .Restaurant.json code
         content = json.load(f1)
 except json.decoder.JSONDecodeError:  # If there is no code, it puts in the
     # code
@@ -51,18 +52,19 @@ except json.decoder.JSONDecodeError:  # If there is no code, it puts in the
         json.dump(JSON_DICT, f1)
     with open(JSON_FILE) as f1:
         content = json.load(f1)
-except FileNotFoundError:  # If there is no code, values are in default
-    content = JSON_DICT[:]
+except FileNotFoundError:  # If there is no code, It makes a
+    # .Restaurant.json file, Already in Restaurant_view.py
+    with open(JSON_FILE, 'w') as f1:
+        json.dump(JSON_DICT, f1)
+    with open(JSON_FILE) as f1:
+        content = json.load(f1)
 
-if MNFE1 == '':  # if Restaurant.json doesn't exist, it tells the user.
+if MNFE1 == '':  # if .Restaurant.json doesn't exist, it tells the user.
     if content['name'] == '':
 
         name = input('Welcome! Please enter your restaurant\'s name:  ')
         print('\nType \'help\' to show all commands and a brief description.'
               ' If you encounter a problem, type \'ed\' for solutions')
-        content["age"] = {date.today().year, date.today().month, date.today(
-
-        ).day}
 
     else:
         name = content['name']

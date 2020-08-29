@@ -2,29 +2,15 @@
 import random
 from json import load, dump
 from datetime import date
+from os import path
 
-VERSION = 'Version 1.3.0 pre-1'
+VERSION = 'Version 1.3.0 pre-2'
 VERSION_DATE = 'August 27 2020'
 DATE = date.today().day
-
-
-class Model:
-    """ The Model class of the Restaurant """
-    def __init__(self, name=""):
-        """ JSON reading and all variables defined here """
-        self.json_file = '/Users/alvinran/Restaurant/Restaurant.json'
-        try:
-            with open(self.json_file) as temp_file:
-                self.file = load(temp_file)
-                self.save = True
-        except FileNotFoundError:
-            self.save = False
-            self.file = {
+JSON_VAR = {
                 "name": "",
                 "quality": 1,
-                "age": {"year": date.today().year, "month": date.today().month,
-                        "day": date.today().day, "dow": date.today(
-                                                ).weekday()},
+                "age": {"year": 2008, "month": 2, "day": 27, },
                 "totalcustomers": 0,
                 "money": 50,
                 "food": 1,
@@ -43,6 +29,29 @@ class Model:
                 "date": DATE + 1,
                 "streak": 0
                 }
+# For the Opening day variable, make the dict same as self.age
+
+
+class Model:
+    """ The Model class of the Restaurant """
+    def __init__(self, name=""):
+        """ JSON reading and all variables defined here """
+        self.json_file = path.abspath(__file__)
+        self.json_file = self.json_file.replace('.py', '.json')
+        self.json_file = self.json_file.replace('_model', '')
+        self.json_file = self.json_file.replace('R', '.R')
+        try:
+            with open(self.json_file) as temp_file:  # Loads the var from
+                # .json file
+                self.file = load(temp_file)
+                self.save = True  # Tells the rest of the program to save
+        except FileNotFoundError:
+            with open(self.json_file, 'w') as f1:
+                dump(JSON_VAR, f1)
+            with open(self.json_file) as f1:
+                content = load(f1)
+
+        # Defining variables for the program
         self.name = name
         self.quality = self.file['quality']
         self.age = self.file['age']
@@ -71,6 +80,7 @@ class Model:
         self.add1 = 0
         self.add2 = 0
         self.add3 = 0
+        # self.o_day = self.file['o_day']
         self.day_names = ["Monday", "Tuesday", "Wednesday", "Thursday",
                           "Friday",
                           "Saturday", "Sunday"]
@@ -376,35 +386,9 @@ class Model:
         """ Tells the info of the program """
         ans = ''
         ans += str(f'\n{VERSION}')
-        ans += str(f'\nReleased on {DATE}')
+        ans += str(f'\nReleased on {VERSION_DATE}')
         ans += str('\nCopyright © Alvin Ran. All rights reserved\n')
-        ans += str('\nMade by Alvin Ran')
+        ans += str('\nMade by Alvin Ran\n')
         ans += str('\nContributors:')
         ans += str('\nJun Ran\nZhiping Lou\n')
-        return ans
-
-    def ed(self, item):
-        """ Error Documents """
-
-        ans = ''
-        if item == '#1':
-            ans = '\nSave Error:\n\nRestaurant has a single-slot save' \
-                  ' system, The system uses a json file to store all the' \
-                  ' info it needs to run the next time you want to play'  \
-                  '.\n\nTo fix the \'Unsuccessful Save\'' \
-                  ' error, you need to make a file called ' \
-                  '\'Restaurant.json\' in the same file as ' \
-                  'the other Restaurant files.\n\n' \
-                  ' And you\'re done! When you exit next time, you\'re ' \
-                  'progress would be saved' \
-                  ' Restaurant_view.py.\n\nCreated by: Alvin Ran\nReleased ' \
-                  'on Friday August 7 2020\n'
-        elif item == '#2':
-            ans = '\nReset Error\n\nIf Resets fail, that\'s because the'\
-                  ' program doesn\'t save when you exit. To fix it, go to #1'\
-                  ' on ED'\
-                  '\n\nCreated by: Alvin Ran\nReleased on Saturday August 8 ' \
-                  '2020\n'
-        else:
-            ans += 'What?'
         return ans
