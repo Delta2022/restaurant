@@ -4,8 +4,8 @@ from json import load, dump
 from datetime import date
 from os import path
 
-VERSION = 'Version 1.3.0 pre-2'
-VERSION_DATE = 'August 27 2020'
+VERSION = 'Version 1.3.0'
+VERSION_DATE = 'August 31 2020'
 DATE = date.today().day
 JSON_VAR = {
                 "name": "",
@@ -27,9 +27,13 @@ JSON_VAR = {
                 "p_limit": 75,
                 "a_25_space": "False",
                 "date": DATE + 1,
-                "streak": 0
+                "streak": 0,
+                "o_day": {
+                    "year": date.today().year, "month": date.today(
+                    ).month, "day": date.today().day, "dow": date.today().
+                                                      weekday()
                 }
-# For the Opening day variable, make the dict same as self.age
+                }
 
 
 class Model:
@@ -49,7 +53,7 @@ class Model:
             with open(self.json_file, 'w') as f1:
                 dump(JSON_VAR, f1)
             with open(self.json_file) as f1:
-                content = load(f1)
+                self.file = load(f1)
 
         # Defining variables for the program
         self.name = name
@@ -80,11 +84,12 @@ class Model:
         self.add1 = 0
         self.add2 = 0
         self.add3 = 0
-        # self.o_day = self.file['o_day']
+        self.o_day = self.file['o_day']
         self.day_names = ["Monday", "Tuesday", "Wednesday", "Thursday",
                           "Friday",
                           "Saturday", "Sunday"]
-        self.month_names = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul',
+        self.month_names = ['THING', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                            'Jul',
                             'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         self.streak = self.file['streak']
         if self.file['date'] == DATE:
@@ -242,8 +247,8 @@ class Model:
                     "p_limit": self.p_limit,
                     "a_25_space": str(self.a_25_space),
                     "date": DATE + 1,
-                    "streak": self.streak
-
+                    "streak": self.streak,
+                    "o_day": self.o_day
                     }, temp_file)
             return '\nProgress Saved\n'
         else:
@@ -341,6 +346,10 @@ class Model:
                    f'{self.day_names[self.age["dow"]]}, '
                    f'{self.month_names[self.age["month"]]} '
                    f'{self.age["day"]}, {self.age["year"]}')
+        ans += str(f'\nOpening Date             =  '
+                   f'{self.day_names[self.o_day["dow"]]}, '
+                   f'{self.month_names[self.o_day["month"]]} '
+                   f'{self.o_day["day"]}, {self.age["year"]}')
         ans += str(f'\nDaily Expenses           =  ${"%.2f"%self.expenses}')
         ans += str(f'\nMax customer capacity    =  {self.limit}')
         ans += str(f'\nTotal customers served   =  {self.totalcustomers}')
@@ -388,7 +397,7 @@ class Model:
         ans += str(f'\n{VERSION}')
         ans += str(f'\nReleased on {VERSION_DATE}')
         ans += str('\nCopyright © Alvin Ran. All rights reserved\n')
-        ans += str('\nMade by Alvin Ran\n')
+        ans += str('\nMade by Alvin\n')
         ans += str('\nContributors:')
-        ans += str('\nJun Ran\nZhiping Lou\n')
+        ans += str('\nJun\nZhiping\n')
         return ans

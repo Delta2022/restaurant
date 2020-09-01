@@ -1,8 +1,8 @@
 # Version Info in Restaurant_model.py
 # TODO: Check Restaurant for bugs and/or errors
 """ Contains the view part of MVC """
-import json
-import time
+from json import load, dump, decoder
+from time import sleep
 from datetime import date
 from os import path
 
@@ -33,7 +33,12 @@ JSON_DICT = {
                     "p_limit": 75,
                     "a_25_space": "False",
                     "date": DATE + 1,
-                    "streak": 0
+                    "streak": 0,
+                    "o_day": {
+                        "year": date.today().year, "month": date.today(
+                        ).month, "day": date.today().day, "dow": date.today().
+                                                      weekday()
+                        }
                     }
 
 try:
@@ -45,19 +50,13 @@ except ModuleNotFoundError:
 
 try:
     with open(JSON_FILE) as f1:  # Loads the .Restaurant.json code
-        content = json.load(f1)
-except json.decoder.JSONDecodeError:  # If there is no code, it puts in the
-    # code
+        content = load(f1)
+except (decoder.JSONDecodeError, FileNotFoundError):  # If there is no
+    # code, it puts in the code
     with open(JSON_FILE, 'w') as f1:
-        json.dump(JSON_DICT, f1)
+        dump(JSON_DICT, f1)
     with open(JSON_FILE) as f1:
-        content = json.load(f1)
-except FileNotFoundError:  # If there is no code, It makes a
-    # .Restaurant.json file, Already in Restaurant_view.py
-    with open(JSON_FILE, 'w') as f1:
-        json.dump(JSON_DICT, f1)
-    with open(JSON_FILE) as f1:
-        content = json.load(f1)
+        content = load(f1)
 
 if MNFE1 == '':  # if .Restaurant.json doesn't exist, it tells the user.
     if content['name'] == '':
@@ -95,14 +94,14 @@ if MNFE1 == '':  # if .Restaurant.json doesn't exist, it tells the user.
         if REQUEST == 'open':
             ans = controller.request(REQUEST)
             print(ans[0])
-            time.sleep(4)
+            sleep(4)
             print(ans[1])
         elif REQUEST == 'reset':
             STRING1 = input('Are you sure?  ')
             STRING1 = str.lower(STRING1)
             if MNFE1 == '':
                 with open(JSON_FILE, 'w') as temp_file:
-                    json.dump(JSON_DICT, temp_file)
+                    dump(JSON_DICT, temp_file)
                 print('\nReset successful\n')
                 break
             else:
