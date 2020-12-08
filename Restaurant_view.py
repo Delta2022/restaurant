@@ -7,9 +7,7 @@ from datetime import date
 from os import path
 
 JSON_FILE = path.abspath(__file__)
-JSON_FILE = JSON_FILE.replace('.py', '.json')
-JSON_FILE = JSON_FILE.replace('_view', '')
-JSON_FILE = JSON_FILE.replace('R', '.R')
+JSON_FILE = JSON_FILE.replace('Restaurant_view.py', '.Restaurant.json')
 MNFE1 = ''
 DATE = date.today().day
 JSON_DICT = {
@@ -62,8 +60,8 @@ if MNFE1 == '':  # if .Restaurant.json doesn't exist, it tells the user.
     if content['name'] == '':
 
         name = input('Welcome! Please enter your restaurant\'s name:  ')
-        print('\nType \'help\' to show all commands and a brief description.'
-              ' If you encounter a problem, type \'ed\' for solutions')
+        print('\nType \'help\' to show all commands and a brief description'
+        ' of each command.')
 
     else:
         name = content['name']

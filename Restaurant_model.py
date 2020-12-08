@@ -4,8 +4,8 @@ from json import load, dump
 from datetime import date
 from os import path
 
-VERSION = 'Version 1.3.0'
-VERSION_DATE = 'August 31 2020'
+VERSION = 'Version 1.3.1'
+VERSION_DATE = 'December 8 2020'
 DATE = date.today().day
 JSON_VAR = {
                 "name": "",
@@ -260,8 +260,9 @@ class Model:
         str(item)
         str.lower(item)
         if item == 'water':
-            ans += str('\nBetter water brings in more pay per customer\n')
-            ans += str(f'Better water costs ${"%.2f"%self.p_water}')
+            ans += str('\n - Water Quality - \n'
+            'Better water quality brings in more pay per customer\n')
+            ans += str(f'\nBetter water quality costs ${"%.2f"%self.p_water}')
             ans += str(f'\nYou have ${"%.2f"%self.money}')
             item2 = 'yes'
             item2 = str(item2)
@@ -283,9 +284,10 @@ class Model:
                 ans += str('\nCancelled\n')
 
         elif item == 'food':
-            ans += str('\nBetter food brings in more customers and has a'
-                       ' higher chance of customers staying in the line')
-            ans += str(f'\nBetter food costs ${"%.2f"%self.p_food}')
+            ans += str('\n - Food Quality - \n'
+                       'Better food quality brings in more customers and has a'
+                       '\nhigher chance of customers staying in a line-up\n')
+            ans += str(f'\nBetter food quality costs ${"%.2f"%self.p_food}')
             ans += str(f'\nYou have ${"%.2f"%self.money}')
             item2 = 'yes'
             item2 = str(item2)
@@ -313,7 +315,9 @@ class Model:
             ans += str(f'\nYou have ${"%.2f"%self.money}\n')
 
         elif item == 'limit':
-            ans += str('\nMore space means more customers')
+            ans += str('\n - Customer Limit - \n'
+                       'More space means more customers to buy your food and'
+                       ' a shorter line-up.\n')
             ans += str(f'\nMore space costs ${"%.2f"%self.p_limit}')
             ans += str(f'\nYou have {"%.2f"%self.money}')
             item2 = 'yes'
@@ -342,18 +346,18 @@ class Model:
         ans = ''
         # self.age["dow"] = date.today().weekday()
         ans += str(f'\nYour Restaurant {self.name}\'s information:\n')
-        ans += str(f'\nDate                     =  '
+        ans += str(f'\nDate                     -  '
                    f'{self.day_names[self.age["dow"]]}, '
                    f'{self.month_names[self.age["month"]]} '
                    f'{self.age["day"]}, {self.age["year"]}')
-        ans += str(f'\nOpening Date             =  '
+        ans += str(f'\nOpening Date             -  '
                    f'{self.day_names[self.o_day["dow"]]}, '
                    f'{self.month_names[self.o_day["month"]]} '
                    f'{self.o_day["day"]}, {self.age["year"]}')
-        ans += str(f'\nDaily Expenses           =  ${"%.2f"%self.expenses}')
-        ans += str(f'\nMax customer capacity    =  {self.limit}')
-        ans += str(f'\nTotal customers served   =  {self.totalcustomers}')
-        ans += str(f'\nMoney                    =  ${"%.2f"%self.money}\n')
+        ans += str(f'\nDaily Expenses           -  ${"%.2f"%self.expenses}')
+        ans += str(f'\nMax customer capacity    -  {self.limit}')
+        ans += str(f'\nTotal customers served   -  {self.totalcustomers}')
+        ans += str(f'\nMoney                    -  ${"%.2f"%self.money}\n')
         return ans
 
     def rename(self, name1):
@@ -386,8 +390,6 @@ class Model:
                    'shows prices for water, food and space')
         ans += str('\nRename        -> Renames your restaurant to a new'
                    ' name\n')
-        ans += 'ED            -> Error Documentation. Tells you how to'\
-               ' fix a bug or problem\n'
 
         return ans
 
