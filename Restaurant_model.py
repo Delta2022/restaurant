@@ -4,8 +4,8 @@ from json import load, dump
 from datetime import date
 from os import path
 
-VERSION = 'Version 1.3.1'
-VERSION_DATE = 'December 8 2020'
+VERSION = 'Version 1.3.1 GUI'
+VERSION_DATE = 'December 16 2020'
 DATE = date.today().day
 JSON_VAR = {
                 "name": "",
