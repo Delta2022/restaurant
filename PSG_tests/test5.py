@@ -1,4 +1,4 @@
-import PySimpleGUI as sg
+import PySimpleGUIWeb as sg
 
 layout = [
     [sg.Text('No output', key='text')],

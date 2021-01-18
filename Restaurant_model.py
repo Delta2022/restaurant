@@ -4,8 +4,8 @@ from json import load, dump
 from datetime import date
 from os import path
 
-VERSION = 'Version 1.3.1 GUI'
-VERSION_DATE = 'December 16 2020'
+VERSION = 'Version 1.4.0 GUI'
+VERSION_DATE = 'January 19 2021'
 DATE = date.today().day
 JSON_VAR = {
                 "name": "",
@@ -345,7 +345,7 @@ class Model:
         """ Describes your restaurant """
         ans = ''
         # self.age["dow"] = date.today().weekday()
-        ans += str(f'\nYour Restaurant {self.name}\'s information:\n')
+        ans += str(f'Your Restaurant {self.name}\'s information:\n')
         ans += str(f'\nDate                     -  '
                    f'{self.day_names[self.age["dow"]]}, '
                    f'{self.month_names[self.age["month"]]} '
