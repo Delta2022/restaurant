@@ -16,7 +16,7 @@ window = sg.Window('Restaurant', layout, finalize=True)
 
 # Normal files
 JSON_FILE = path.abspath(__file__)
-JSON_FILE = JSON_FILE.replace('.py', '.json')
+JSON_FILE = JSON_FILE.replace('_gui.py', '.json')
 JSON_FILE = JSON_FILE.replace('_view', '')
 JSON_FILE = JSON_FILE.replace('R', '.R')
 MNFE1 = ''
@@ -86,12 +86,12 @@ if MNFE1 == '':  # if .Restaurant.json doesn't exist, it does stuff
     else:
         # Unsure if works, try after fixed saving
         name = content['name']
-        ans = (f'\nWelcome back to your restaurant: {name}')
+        ans = (f'\nWelcome back to your restaurant: {name}\n\n')
         if content['date'] == DATE and content["streak"] > 1:
-            window['text'].update(f'Congratulations for playing {content["streak"]} days'
+            ans += (f'\nCongratulations for playing {content["streak"]} days'
                   ' in a'
                   f' row! For that I\'ll give you {content["streak"] * 10}'
-                  f' dollars!')
+                  f' dollars!\n\n')
 
     controller = Controller(name)
     ans += controller.request('info')
@@ -101,6 +101,7 @@ if MNFE1 == '':  # if .Restaurant.json doesn't exist, it does stuff
         event, values = window.read()
         if event == sg.WIN_CLOSED:
             ans = controller.request('save')
+            print('saved') # debugging
             break
         if ans == '\nPlease put Restaurant_Model.py and' \
                   ' Restaurant_Controller.py together in the same folder\n':
