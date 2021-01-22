@@ -4,15 +4,16 @@ from json import load, dump, decoder
 from time import sleep
 from datetime import date
 from os import path
-import PySimpleGUI as sg
+import PySimpleGUIWeb as sg
 
 # PySimpleGUI Variables
 layout = [
-    [sg.Text('no output',size=(50,None), key='text')],
+    [sg.Text('Welcome to Restaurant!')],
     [sg.Input(key='input')],
-    [sg.Button('Read', key='read')]
+    [sg.Button('Read', key='read')],
+    [sg.Multiline('no output',size=(50,15), key='text')]
 ]
-window = sg.Window('Restaurant', layout, finalize=True)
+window = sg.Window('Restaurant', layout, finalize=True, web_port=8081)
 
 # Normal files
 JSON_FILE = path.abspath(__file__)
@@ -77,8 +78,8 @@ if MNFE1 == '':  # if .Restaurant.json doesn't exist, it does stuff
 
 
         name = REQUEST
-        print(name) # debugging
-        print(REQUEST) # debugging
+        # print(name) # debugging
+        # print(REQUEST) # debugging
         # TODO: Make the website be able to save-ish
         ans = ('\nType \'help\' to show all commands and a brief description.'
               ' If you encounter a problem, type \'ed\' for solutions\n\n')
@@ -101,14 +102,14 @@ if MNFE1 == '':  # if .Restaurant.json doesn't exist, it does stuff
         event, values = window.read()
         if event == sg.WIN_CLOSED:
             ans = controller.request('save')
-            print('saved') # debugging
+            # print('saved') # debugging
             break
         if ans == '\nPlease put Restaurant_Model.py and' \
                   ' Restaurant_Controller.py together in the same folder\n':
             break
         if event == 'read':
             REQUEST = values['input']
-            print(REQUEST)  # Remove this later, it's for debugging purposes
+            # print(REQUEST)  # Remove this later, it's for debugging purposes
             window['text'].update(REQUEST)
             # TODO: Fix shop command
         REQUEST = str.lower(REQUEST)

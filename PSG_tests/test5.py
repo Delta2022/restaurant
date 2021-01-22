@@ -1,14 +1,14 @@
-import PySimpleGUIWeb as sg
+import PySimpleGUI as sg
 
 layout = [
-    [sg.Text('No output', key='text')],
+    [sg.Text('No output',size=(45, None), key='text')],
     [sg.Button('open', key='open')],
     [sg.Button('info', key='info')],
     [sg.Button('save', key='save')],
     [sg.Button('exit', key='exit')]
 ]
 
-window = sg.Window('My new window', layout)
+window = sg.Window('Restaurant', layout)
 
 while True:
     event, values = window.read()
